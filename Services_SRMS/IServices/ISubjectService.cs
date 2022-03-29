@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SRMSServices.IServices
 {
-    internal interface ISubjectService
+   public interface ISubjectService
     {
     }
 }
