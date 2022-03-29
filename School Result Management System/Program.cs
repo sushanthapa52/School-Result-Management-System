@@ -1,12 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using School_Result_Management_System.Models;
+using SRMSDataAccess.Models;
+using SRMSRepositories.IRepositories;
+using SRMSRepositories.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
- builder.Services.AddDbContext<srmsContext>(options=>
- options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
+builder.Services.AddDbContext<SrmsContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 var app = builder.Build();
 

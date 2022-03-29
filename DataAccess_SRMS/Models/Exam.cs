@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace School_Result_Management_System.Models
+namespace SRMSDataAccess.Models
 {
     public partial class Exam
     {

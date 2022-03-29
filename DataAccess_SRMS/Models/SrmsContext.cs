@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace School_Result_Management_System.Models
+namespace SRMSDataAccess.Models
 {
-    public partial class srmsContext : DbContext
+    public partial class SrmsContext : DbContext
     {
-        public srmsContext()
+        public SrmsContext()
         {
         }
 
-        public srmsContext(DbContextOptions<srmsContext> options)
+        public SrmsContext(DbContextOptions<SrmsContext> options)
             : base(options)
         {
         }
