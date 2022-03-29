@@ -1,16 +1,17 @@
 ﻿using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
+using SRMSServices.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRMSRepositories.Repositories
+namespace SRMSServices.Services
 {
-    public class UserRepository : Repository<User, int>, IUserRepository
+    public class SubjectService : Service<Subject, int>, ISubjectService
     {
-        public UserRepository(SrmsContext sc) : base(sc)
+        public SubjectService(IRepository<Subject, int> repository) : base(repository)
         {
         }
     }

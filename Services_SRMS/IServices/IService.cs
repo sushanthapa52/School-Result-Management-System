@@ -11,11 +11,9 @@ namespace SRMSServices.IServices
     {
         Task SaveAsync(T entity);
         Task<IEnumerable<T>> GetAllAsync();
-       
         Task<IEnumerable<T>> FindByIdAsync(T1 id);
         Task UpdateAsync(T entity);
     
-
         Task DeleteAsync(T1 id);
         Task DeleteAsync(T entity);
        
