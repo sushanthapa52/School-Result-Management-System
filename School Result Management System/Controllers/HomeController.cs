@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using School_Result_Management_System.Models;
+using SchoolResultManagementSystem.Models;
 using System.Diagnostics;
 
-namespace School_Result_Management_System.Controllers
+namespace SchoolResultManagementSystem.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model TestViewModel
+@{
+    ViewData["Title"] = "Sum";
+}
+<p>
+    @using (Html.BeginForm("Index", "Test", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="number" name="Number1" value="@Model.Number1">
+        <input type="number" name="Number2" value="@Model.Number2">
+        <input type="number" name="Result" value="@Model.Result">
+    @*<p>Number 1: @Html.EditorFor(x=>x.Number1)</p>
+    <p>Number 2: @Html.EditorFor(x=>x.Number2)</p>
+    <p>Result: @Html.DisplayTextFor(x=>x.Result)</p>*@
+    <p><input type="submit" value="Sum" /></p>
+
+    }
+</p>

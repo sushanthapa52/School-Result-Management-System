@@ -1,18 +1,23 @@
 using Microsoft.EntityFrameworkCore;
-using School_Result_Management_System.Models;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using SRMSRepositories.Repositories;
+using SRMSServices.IServices;
+using SRMSServices.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Sql Server Connection though  EntityFramework
 builder.Services.AddDbContext<SrmsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
-
+//Dependency Injection for Repository
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
+
+//Dependency Injection for Services
+builder.Services.AddScoped<IStudentService, StudentService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,9 +34,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();

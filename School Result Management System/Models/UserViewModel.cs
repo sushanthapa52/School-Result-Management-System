@@ -1,4 +1,4 @@
-﻿namespace School_Result_Management_System.Models
+﻿namespace SchoolResultManagementSystem.Models
 {
     public class UserViewModel
     {
