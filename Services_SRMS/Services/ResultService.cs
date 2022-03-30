@@ -11,7 +11,7 @@ namespace SRMSServices.Services
 {
     public class ResultService : Service<Result, int>, IResultService
     {
-        public ResultService(IRepository<Result, int> repository) : base(repository)
+        public ResultService(IResultRepository repository) : base(repository)
         {
         }
     }

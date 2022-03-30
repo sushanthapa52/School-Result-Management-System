@@ -13,5 +13,6 @@ namespace SRMSRepositories.Repositories
         public UserRepository(SrmsContext sc) : base(sc)
         {
         }
+
     }
 }

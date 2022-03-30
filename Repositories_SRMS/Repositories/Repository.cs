@@ -20,23 +20,23 @@ namespace SRMSRepositories.Repositories
             _dbSet = sc.Set<T>();
 
         }
-       
-        public IQueryable<T> Table => _dbSet;
 
-        public IQueryable<T> TableAsNoTracking => _dbSet.AsNoTracking();
+        protected internal IQueryable<T> Table => _dbSet;
+
+        protected internal IQueryable<T> TableAsNoTracking => _dbSet.AsNoTracking();
 
         public async Task DeleteAsync(T1 id)
         {
-            var entity=await _dbSet.FindAsync(id);
+            var entity = await _dbSet.FindAsync(id);
             _dbSet.Remove(entity);
             Save();
         }
-      
+
 
         public async Task DeleteAsync(T entity)
         {
-           
-           _dbSet.Remove(entity);
+
+            _dbSet.Remove(entity);
             Save();
 
         }
@@ -63,13 +63,13 @@ namespace SRMSRepositories.Repositories
 
         public async Task SaveAsync(T entity)
         {
-         await  _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity);
             Save();
         }
 
         public async Task UpdateAsync(T entity)
         {
-             _dbSet.Update(entity);
+            _dbSet.Update(entity);
             Save();
         }
 

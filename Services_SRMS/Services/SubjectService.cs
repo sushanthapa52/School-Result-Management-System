@@ -11,7 +11,7 @@ namespace SRMSServices.Services
 {
     public class SubjectService : Service<Subject, int>, ISubjectService
     {
-        public SubjectService(IRepository<Subject, int> repository) : base(repository)
+        public SubjectService(ISubjectRepository repository) : base(repository)
         {
         }
     }

@@ -19,8 +19,8 @@ namespace SRMSRepositories.IRepositories
         Task DeleteAsync(T1 id);
         Task DeleteAsync(T entity);
         Task DeleteAsync(Expression<Func<T, bool>> condition);
-        IQueryable<T> Table { get; }
-        IQueryable<T> TableAsNoTracking { get; }
+        //IQueryable<T> Table { get; }
+        //IQueryable<T> TableAsNoTracking { get; }
 
 
     }

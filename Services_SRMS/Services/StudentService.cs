@@ -11,7 +11,7 @@ namespace SRMSServices.Services
 {
     public class StudentService : Service<Student, int>, IStudentService
     {
-        public StudentService(IRepository<Student, int> repository) : base(repository)
+        public StudentService(IStudentRepository repository) : base(repository)
         {
         }
     }

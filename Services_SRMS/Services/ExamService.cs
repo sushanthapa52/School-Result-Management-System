@@ -11,7 +11,7 @@ namespace SRMSServices.Services
 {
     public class ExamService : Service<Exam, int>, IExamService
     {
-        public ExamService(IRepository<Exam, int> repository) : base(repository)
+        public ExamService(IExamRepository repository) : base(repository)
         {
         }
     }

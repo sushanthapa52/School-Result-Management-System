@@ -2,8 +2,9 @@
 
 namespace SRMSRepositories.IRepositories
 {
-    public interface IStudentRepository
+    public interface IStudentRepository:IRepository<Student,int>
     {
+        
 
     }
 }

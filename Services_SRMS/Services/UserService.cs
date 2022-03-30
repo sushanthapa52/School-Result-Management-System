@@ -11,7 +11,7 @@ namespace SRMSServices.Services
 {
     public class UserService : Service<User, int>, IUserService
     {
-        public UserService(IRepository<User, int> repository) : base(repository)
+        public UserService(IUserRepository repository) : base(repository)
         {
         }
     }

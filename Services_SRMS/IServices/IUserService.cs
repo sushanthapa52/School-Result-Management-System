@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SRMSServices.IServices
 {
-    public  interface IUserService
+    public  interface IUserService : IService<User, int>
     {
     }
 }

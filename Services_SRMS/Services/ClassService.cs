@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 namespace SRMSServices.Services
 {
     public class ClassService : Service<Class, int>, IClassService
-    {
-        public ClassService(IRepository<Class, int> repository) : base(repository)
+    {   
+        public ClassService(IClassRepository repository) : base(repository)
         {
+            
         }
     }
 }
