@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SRMSServices.Services
 {
-    internal class MarkService : Service<Mark, int>, IMarkService
+    public class MarkService : Service<Mark, int>, IMarkService
     {
         public MarkService(IMarkRepository repository) : base(repository)
         {

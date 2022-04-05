@@ -13,13 +13,13 @@ namespace SRMSServices.Services
     {
         private readonly IRepository<T, T1> _repository;
 
-        public Service(IRepository<T,T1> repository)
+        public Service(IRepository<T, T1> repository)
         {
             this._repository = repository;
         }
         public async Task DeleteAsync(T1 id)
         {
-           await _repository.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
         }
 
         public async Task DeleteAsync(T entity)
@@ -27,7 +27,7 @@ namespace SRMSServices.Services
             await _repository.DeleteAsync(entity);
         }
 
-      
+
 
         public Task<IEnumerable<T>> FindBy(Expression<Func<T, bool>> condition)
         {
@@ -41,7 +41,7 @@ namespace SRMSServices.Services
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-         return   await _repository.GetAllAsync();
+            return await _repository.GetAllAsync();
         }
 
         public Task SaveAsync(T entity)

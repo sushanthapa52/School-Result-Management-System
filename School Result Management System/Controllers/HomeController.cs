@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolResultManagementSystem.Models;
+using SRMSRepositories.IRepositories;
 using System.Diagnostics;
 
 namespace SchoolResultManagementSystem.Controllers
@@ -8,10 +9,28 @@ namespace SchoolResultManagementSystem.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+       
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+           
+
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public IActionResult Login(LoginViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //    }
+        //}
 
         public IActionResult Index()
         {

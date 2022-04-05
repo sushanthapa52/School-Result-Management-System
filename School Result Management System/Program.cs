@@ -14,10 +14,11 @@ builder.Services.AddDbContext<SrmsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 //Dependency Injection for Repository
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 //Dependency Injection for Services
-builder.Services.AddScoped<IStudentService, StudentService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

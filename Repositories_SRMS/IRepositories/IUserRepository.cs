@@ -9,5 +9,6 @@ namespace SRMSRepositories.IRepositories
 {
     public interface IUserRepository : IRepository<User, int>
     {
+        User Login(string email, string password);
     }
 }

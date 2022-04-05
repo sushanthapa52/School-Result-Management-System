@@ -1,4 +1,5 @@
-﻿using SRMSDataAccess.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,15 @@ namespace SRMSRepositories.Repositories
         public UserRepository(SrmsContext sc) : base(sc)
         {
         }
+      
 
+        public async Task<User> FindUserByIdAsync(int id)
+        {
+            var user = await _sc.Users.FindAsync(id);
+
+            return user;
+        }
+
+    
     }
 }
