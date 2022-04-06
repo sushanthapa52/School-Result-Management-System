@@ -9,7 +9,8 @@ namespace SRMSServices.IServices
 {
     public  interface IUserService : IService<User, int>
     {
-      Task<User> FindByEmailAsync(string email)  
-      Task<IEnumerable<User>> ValidatePassword(User user);
+        User SignInValidation(string? email, string? password);
+
+
     }
 }

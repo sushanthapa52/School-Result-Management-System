@@ -13,8 +13,13 @@ namespace SRMSRepositories.Repositories
     {
         public UserRepository(SrmsContext sc) : base(sc)
         {
+           
         }
-      
+
+        public User CheckUser(string email, string password)
+        {
+            return _sc.Users.FirstOrDefault(x => x.UserEmail == email && x.UserPassword == password);
+        }
 
         public async Task<User> FindUserByIdAsync(int id)
         {

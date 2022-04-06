@@ -17,7 +17,11 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
+
+
+
 //Dependency Injection for Services
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

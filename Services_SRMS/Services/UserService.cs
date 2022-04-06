@@ -19,22 +19,12 @@ namespace SRMSServices.Services
 
        
 
-        public async Task<User> SignInValidation(string? email, string? password)
+        public  User SignInValidation(string? email, string? password)
         {
-          var user= await _repository.FindBy(x=>x.UserEmail == email);
-            
-            if (user != null)
-            {
-                var pass = user.FirstOrDefault(x => x.UserPassword == password);
-                if (pass != null)
-                
-
-            }
+            return _repository.CheckUser(email, password);
+          
         }
 
-        public Task<IEnumerable<User>> ValidatePassword(User user)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
