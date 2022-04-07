@@ -20,15 +20,7 @@ namespace School_Result_Management_System.Controllers
         [HttpPost]
         public IActionResult Index(UserViewModel model)
         {
-            if (!model.UserName.Contains('@'))
-            {
-                ModelState.AddModelError("Email", "Invalid Email Format");
-                return View(model);
-
-            }
-
          
-
             if (ModelState.IsValid)
             {
                 var user = _userService.SignInValidation(model.UserName, model.Password);

@@ -11,8 +11,16 @@ namespace SRMSServices.Services
 {
     public class SubjectService : Service<Subject, int>, ISubjectService
     {
+        private readonly ISubjectRepository _repository;
         public SubjectService(ISubjectRepository repository) : base(repository)
         {
+            _repository = repository;   
+        }
+
+        
+        public async Task CreateSubjectAsync(Subject subject)
+        {
+           await _repository.AddSubjectAsync(subject);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace SRMSRepositories.IRepositories
 {
     public interface ISubjectRepository:IRepository<Subject,int>
     {
+        Task AddSubjectAsync(Subject sub);
+        int GetSubjectId();
     }
 
     

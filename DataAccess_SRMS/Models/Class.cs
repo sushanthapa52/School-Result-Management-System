@@ -13,9 +13,8 @@ namespace SRMSDataAccess.Models
         }
 
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string Status { get; set; } = null!;
-        public DateTime CreatedOn { get; set; }
+        public string? ClassName { get; set; }
+       
 
         public virtual ICollection<Result> Results { get; set; }
         public virtual ICollection<Student> Students { get; set; }

@@ -15,6 +15,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 //Dependency Injection for Repository
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 
 
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Dependency Injection for Services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
 
 var app = builder.Build();
 
