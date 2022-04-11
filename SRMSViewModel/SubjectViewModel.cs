@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SRMSViewModel
 {
-    public class SubjectViewModel
+    public class SubjectViewModel:Response
     {
 
 

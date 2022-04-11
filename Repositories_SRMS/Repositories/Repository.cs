@@ -79,7 +79,7 @@ namespace SRMSRepositories.Repositories
         {
             throw new NotImplementedException();
         }
-        private void Save()
+        protected void Save()
         {
             _sc.SaveChanges();
         }

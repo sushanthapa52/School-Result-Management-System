@@ -4,7 +4,7 @@ namespace School_Result_Management_System.Controllers
 {
     public class ClassController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Create()
         {
             return View();
         }

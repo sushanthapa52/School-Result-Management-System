@@ -1,14 +1,33 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using SRMSRepositories.Repositories;
-using SRMSServices.IServices;
-using SRMSServices.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context=>true;
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+
+});
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme= CookieAuthenticationDefaults.AuthenticationScheme;
+
+}).AddCookie(option =>
+{
+    option.LoginPath = "/Login/Index";
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(24 * 60);
+});
+
 //Sql Server Connection though  EntityFramework
 builder.Services.AddDbContext<SrmsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
@@ -18,12 +37,6 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 
 
-
-
-
-//Dependency Injection for Services
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ISubjectService, SubjectService>();
 
 var app = builder.Build();
 
@@ -40,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",

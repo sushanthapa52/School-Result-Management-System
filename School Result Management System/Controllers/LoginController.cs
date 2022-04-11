@@ -1,42 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolResultManagementSystem.Models;
-using SRMSServices.IServices;
+using SRMSRepositories.IRepositories;
 using SRMSViewModel;
+using System.Security.Claims;
 
 namespace School_Result_Management_System.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IUserService _userService;
-        public LoginController(IUserService userService)
+        private readonly IUserRepository _userrepo;
+        public LoginController(IUserRepository userrepo)
         {
-            _userService = userService; 
+            _userrepo = userrepo;
         }
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            return View(new UserViewModel());
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View(new UserViewModel());
+            }
+            return RedirectToAction("Index", "Dashboard");
+
         }
 
         [HttpPost]
-        public IActionResult Index(UserViewModel model)
+        public async  Task<IActionResult> Index(UserViewModel model)
         {
-         
+
             if (ModelState.IsValid)
             {
-                var user = _userService.SignInValidation(model.UserName, model.Password);
+                var user = _userrepo.CheckUser(model.UserName, model.Password);
 
-                if (user == null)
+                if (user!=null)
                 {
-                    ModelState.AddModelError("", "invalid username and password");
-                    return View(model);
+                    var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
+                    identity.AddClaim(new Claim(ClaimTypes.Name, model.UserName));
+
+                    var principle = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync( CookieAuthenticationDefaults.AuthenticationScheme, principle,new AuthenticationProperties
+                 {
+                     IsPersistent = model.RememberMe
+                 });
+
+                    return RedirectToAction("Index", "Dashboard");
                 }
-                //user identity task remaining.
-                return RedirectToAction("Index", "Dashboard");
+               
+                ModelState.AddModelError(" ", "invalid username and password");
+                return View(model);
 
             }
 
             return View(model);
-        
+
 
         }
     }

@@ -20,7 +20,6 @@
   <ItemGroup>
     
     <ProjectReference Include="..\Repositories_SRMS\SRMSRepositories.csproj" />
-    <ProjectReference Include="..\Services_SRMS\SRMSServices.csproj" />
     <ProjectReference Include="..\SRMSViewModel\SRMSViewModel.csproj" />
   </ItemGroup>
 

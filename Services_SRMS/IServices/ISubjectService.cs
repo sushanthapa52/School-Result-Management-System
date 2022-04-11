@@ -9,6 +9,6 @@ namespace SRMSServices.IServices
 {
    public interface ISubjectService:IService<Subject, int>
     {
-        Task CreateSubjectAsync(Subject subject);
+        
     }
 }

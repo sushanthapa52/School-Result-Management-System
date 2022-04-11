@@ -9,7 +9,7 @@ namespace SRMSDataAccess.Models
         {
             Results = new HashSet<Result>();
             Students = new HashSet<Student>();
-            Subjects = new HashSet<Subject>();
+         
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace SRMSDataAccess.Models
 
         public virtual ICollection<Result> Results { get; set; }
         public virtual ICollection<Student> Students { get; set; }
-        public virtual ICollection<Subject> Subjects { get; set; }
+      
     }
 }

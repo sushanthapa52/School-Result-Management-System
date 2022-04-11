@@ -18,9 +18,6 @@ namespace SRMSServices.Services
         }
 
         
-        public async Task CreateSubjectAsync(Subject subject)
-        {
-           await _repository.AddSubjectAsync(subject);
-        }
+       
     }
 }

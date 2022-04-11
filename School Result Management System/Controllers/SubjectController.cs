@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
-using SRMSServices.IServices;
+
 using SRMSViewModel;
 
 namespace School_Result_Management_System.Controllers
 {
+    [Authorize]
     public class SubjectController : Controller
     {
         private ISubjectRepository _subjectrepo;
@@ -13,7 +15,13 @@ namespace School_Result_Management_System.Controllers
         {
             _subjectrepo = subjectrepo;
         }
+        public IActionResult Index()
+        {
+            IEnumerable<Subject> subjects = _subjectrepo.GetAllSubjects();
 
+            return View(subjects);
+
+        }
         [HttpGet]
         public IActionResult Create()
         {
@@ -21,22 +29,55 @@ namespace School_Result_Management_System.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(SubjectViewModel model)
+        public async Task<IActionResult> Create(SubjectViewModel model)
         {
-            Subject subject = new Subject()
-            {
-                SubjectName = model.SubjectName
-            };
-
 
             if (ModelState.IsValid)
             {
-                _subjectrepo.AddSubjectAsync(subject);
-                return View(new SubjectViewModel());
-              
+                Subject subject = new Subject()
+                {
+                    SubjectName = model.SubjectName
+                };
+                await _subjectrepo.AddSubjectAsync(subject);
+                return RedirectToAction("Index");
+
             }
+
+
             return View(model);
-            
+
+
+        }
+
+        public ViewResult Edit(int id)
+        {
+           Subject subject =  _subjectrepo.GetSubjectById(id);
+            return View(subject);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Subject subject)
+        {
+            if (ModelState.IsValid)
+            {
+                _subjectrepo.UpdateSubject(subject);
+                return Redirect("/Subject");
+             
+
+            }
+            return View(subject);
+           
+
+        }
+
+
+
+        public IActionResult Delete(int id)
+        {
+
+            _subjectrepo.RemoveSubject(id);
+            return Redirect("/Subject");
+
         }
     }
 }
