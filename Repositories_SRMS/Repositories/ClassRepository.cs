@@ -41,9 +41,22 @@ namespace SRMSRepositories.Repositories
 
         public Class UpdateClass(Class classupdates)
         {
-            _sc = sc;
+            var clup = _sc.Classes.Attach(classupdates);
+            clup.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _sc.SaveChanges();
+            return classupdates;
         }
 
+        public async Task RemoveClass(int id)
+        {
+            Subject? subject = _sc.Subjects.Find(id);
+      
+
+            if (subject != null)
+            {
+                _sc.Subjects.Remove(subject);
+                await _sc.SaveChangesAsync();
+            }
         }
     }
 }
