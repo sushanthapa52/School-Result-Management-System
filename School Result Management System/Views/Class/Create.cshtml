@@ -1,4 +1,56 @@
-﻿@{
-    ViewBag.Title="Create class";
+﻿@model ClassSubjectViewModel
+
+
+@{
+    ViewBag.Title = "Create Class";
 }
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+<form>
+   <div class="row d-flex justify-content-center mt-100">
+        <div class="col-md-6">
+        <label asp-for="ClassName"></label>
+        <input asp-for="ClassName" class="form-control col-3 mb-4" placeholder="ClassName" />
+        <span asp-validation-for="ClassName" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div class="row d-flex justify-content-center mt-100">
+        <div class="col-md-6">
+            <select id="choices-multiple-remove-button" asp-for="subjects" placeholder="Choose Subjects" multiple>
+         @* @foreach()      *@
+          <option value="HTML">HTML</option>
+            <option value="HTML">HTML</option> 
+            <option value="HTML">HTML</option>
+               
+            </select>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $(document).ready(function(){
+
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:10,
+    searchResultLimit:10,
+    renderChoiceLimit:10
+    });
+
+
+    });
+
+</script>
 

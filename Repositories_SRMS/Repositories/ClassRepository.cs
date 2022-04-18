@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.Repositories
 {
-    public class ClassRepository : Repository<Class, int>, IClassRepository
+    public class ClassRepository : IClassRepository
     {
-        public ClassRepository(SrmsContext sc) : base(sc)
+        private readonly SrmsContext _sc;
+        public ClassRepository(SrmsContext sc)
         {
+            _sc = sc;
+        }
 
+        public async Task<Class> AddClassAsync(Class newclass)
+        {
+            await _sc.Classes.AddAsync(newclass);
+            await _sc.SaveChangesAsync();
+            return newclass;
         }
     }
 }

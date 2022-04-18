@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.IRepositories
 {
-   public interface IClassRepository: IRepository<Class, int>
+   public interface IClassRepository
     {
+        Task<Class> AddClassAsync(Class newclass);
     }
 }

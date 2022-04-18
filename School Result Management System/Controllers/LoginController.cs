@@ -24,7 +24,7 @@ namespace School_Result_Management_System.Controllers
             {
                 return View(new UserViewModel());
             }
-            return RedirectToAction("Index", "Dashboard");
+            return Redirect("/Home/Index");
 
         }
 
