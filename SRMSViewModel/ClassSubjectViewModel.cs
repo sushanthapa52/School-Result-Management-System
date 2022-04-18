@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace SRMSViewModel
 {
-public class ClassSubjectViewModel
+    public class ClassSubjectViewModel
     {
         public string? ClassName { get; set; }
 
-        public List<Subject>? subjects { get; set; } 
+        public List<Subject>? subjects { get; set; }
+
     }
 }

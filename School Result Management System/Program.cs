@@ -35,6 +35,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
 
 
 

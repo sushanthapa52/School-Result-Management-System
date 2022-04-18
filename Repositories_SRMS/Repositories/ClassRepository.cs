@@ -13,14 +13,37 @@ namespace SRMSRepositories.Repositories
         private readonly SrmsContext _sc;
         public ClassRepository(SrmsContext sc)
         {
+          _sc= sc;
+        }
+
+      
+
+        public IEnumerable<Class> GetAllClasses()
+        {
+            return _sc.Classes;
+        }
+
+        public async Task<Class> AddClassAsync(Class cls)
+        {
+            await _sc.Classes.AddAsync(cls);
+            await _sc.SaveChangesAsync();
+            return cls;
+
+            
+        }
+
+        public Class GetClassById(int id)
+        {
+            var cl= _sc.Classes.Find(id);
+            return cl;
+        }
+
+
+        public Class UpdateClass(Class classupdates)
+        {
             _sc = sc;
         }
 
-        public async Task<Class> AddClassAsync(Class newclass)
-        {
-            await _sc.Classes.AddAsync(newclass);
-            await _sc.SaveChangesAsync();
-            return newclass;
         }
     }
 }

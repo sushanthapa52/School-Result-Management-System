@@ -9,6 +9,16 @@ namespace SRMSRepositories.IRepositories
 {
    public interface IClassRepository
     {
-        Task<Class> AddClassAsync(Class newclass);
+  
+        IEnumerable<Class> GetAllClasses();
+
+        Task<Class> AddClassAsync(Class cls);
+
+        Class GetClassById(int id);
+
+        Class UpdateClass(Class classupdates);
+
+        Task RemoveClass(int id);
+
     }
 }
