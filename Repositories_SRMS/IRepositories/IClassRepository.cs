@@ -18,7 +18,7 @@ namespace SRMSRepositories.IRepositories
 
         Class UpdateClass(Class classupdates);
 
-        Task RemoveClass(int id);
+        Task RemoveClassAsync(int id);
 
     }
 }

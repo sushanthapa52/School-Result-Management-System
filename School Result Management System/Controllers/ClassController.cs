@@ -64,7 +64,7 @@ namespace School_Result_Management_System.Controllers
 
         public IActionResult Delete(int id)
         {
-            _classrepo.RemoveClass(id);
+            _classrepo.RemoveClassAsync(id);
             return Redirect("/Class");
         }
 
