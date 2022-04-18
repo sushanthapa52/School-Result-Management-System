@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace SRMSViewModel
 {
-    public class SubjectViewModel
+    public class ClassViewModel
     {
 
-
-        [Required(ErrorMessage = "Subject Name is required")]
-        [Display(Name = "Subject")]
-        public string SubjectName { get; set; } = null!;
+        [Required(ErrorMessage = "Class Name is required")]
+        [Display(Name = "Class")]
+        public string ClassName { get; set; } = null!;
     }
 }

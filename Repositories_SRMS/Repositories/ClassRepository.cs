@@ -8,11 +8,54 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.Repositories
 {
-    public class ClassRepository : Repository<Class, int>, IClassRepository
+    public class ClassRepository : IClassRepository
     {
-        public ClassRepository(SrmsContext sc) : base(sc)
+        private readonly SrmsContext _sc;
+        public ClassRepository(SrmsContext sc)
+        {
+          _sc= sc;
+        }
+
+      
+
+        public IEnumerable<Class> GetAllClasses()
+        {
+            return _sc.Classes;
+        }
+
+        public async Task<Class> AddClassAsync(Class cls)
+        {
+            await _sc.Classes.AddAsync(cls);
+            await _sc.SaveChangesAsync();
+            return cls;
+
+            
+        }
+
+        public Class GetClassById(int id)
+        {
+            var cl= _sc.Classes.Find(id);
+            return cl;
+        }
+
+
+        public Class UpdateClass(Class classupdates)
         {
 
+            var cls = _sc.Classes.Attach(classupdates);
+            cls.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _sc.SaveChanges();
+            return classupdates;
+        }
+
+        public async Task RemoveClass(int id)
+        {
+            Class? cls = _sc.Classes.Find(id);
+            if (cls != null)
+            {
+                _sc.Classes.Remove(cls);
+                await _sc.SaveChangesAsync();
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Subject>
+﻿@model IEnumerable<Class>
 @{
-    ViewBag.Title = "Subjects";
+    ViewBag.Title = "Classes";
 }
 
 
@@ -160,7 +160,7 @@ table.table td .add {
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Subject <b>Details</b></h2></div>
+                    <div class="col-sm-8"><h2>Class <b>Details</b></h2></div>
                     <div class="col-sm-4">
                         <a type="button" class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New</a>
                     </div>
@@ -169,20 +169,20 @@ table.table td .add {
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Subject Name</th>
+                        <th>Class Name</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(Subject subject in Model)
+                    @foreach(Class cl in Model)
                     {
                          <tr>
-                        <td>@subject.SubjectName</td>
+                        <td>@cl.ClassName</td>
                        
                         <td>
                            
-                            <a class="edit" asp-action="Edit" asp-route-id="@subject.Id"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" asp-action="Delete" asp-route-id="@subject.Id"><i class="material-icons">&#xE872;</i></a>
+                            <a class="edit" asp-action="Edit" asp-route-id="@cl.Id"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" asp-action="Delete" asp-route-id="@cl.Id"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
                     }
@@ -198,9 +198,9 @@ else
 {
     
   <div class="card mb-5 di">
-      <div class="card-body text-danger">No Subject Created yet.</div>
+      <div class="card-body text-danger">No Classes Created yet.</div>
       </div>
-   <a type="button" class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Subject</a>
+   <a type="button" class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Class</a>
 
 }
 
