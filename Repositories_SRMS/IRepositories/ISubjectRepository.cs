@@ -15,6 +15,7 @@ namespace SRMSRepositories.IRepositories
         IEnumerable<Subject> GetAllSubjects();
         Subject GetSubjectById(int id);
         Subject UpdateSubject(Subject subjectupdates);
+        bool SubjectExists(string subjectName);
     }
 
     

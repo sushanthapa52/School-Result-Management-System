@@ -48,7 +48,7 @@ namespace School_Result_Management_System.Controllers
                      IsPersistent = model.RememberMe
                  });
 
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Home");
                 }
                
                 ModelState.AddModelError(" ", "invalid username and password");

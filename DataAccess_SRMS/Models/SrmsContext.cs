@@ -145,15 +145,7 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.ClassId).HasColumnName("class_id");
 
-                entity.Property(e => e.StudentAddedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("student_added_by");
-
-                entity.Property(e => e.StudentAddedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("student_added_on");
-
+               
                 entity.Property(e => e.StudentDob)
                     .HasColumnType("date")
                     .HasColumnName("student_dob");
@@ -178,10 +170,6 @@ namespace SRMSDataAccess.Models
                     .IsUnicode(false)
                     .HasColumnName("student_roll_no");
 
-                entity.Property(e => e.StudentStatus)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("student_status");
 
                 entity.HasOne(d => d.Class)
                     .WithMany(p => p.Students)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SRMSDataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace SRMSViewModel
         [Required(ErrorMessage = "Subject Name is required")]
         [Display(Name = "Subject")]
         public string SubjectName { get; set; } = null!;
+        public List<Class>? Classes { get; set; }
     }
 }

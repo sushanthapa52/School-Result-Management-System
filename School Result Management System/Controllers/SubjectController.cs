@@ -34,6 +34,12 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
+                if (_subjectrepo.SubjectExists(model.SubjectName))
+                {
+                    ModelState.AddModelError(string.Empty, "Subject with the given subjectname already exists.");
+                    return View(model);
+                }
+
                 Subject subject = new Subject()
                 {
                     SubjectName = model.SubjectName

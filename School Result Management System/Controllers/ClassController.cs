@@ -14,7 +14,7 @@ namespace School_Result_Management_System.Controllers
         {
             _classrepo = classrepo;
         }
-        public IActionResult index()
+        public IActionResult Index()
         {
             IEnumerable<Class> classes = _classrepo.GetAllClasses();
             return View(classes);
@@ -24,6 +24,7 @@ namespace School_Result_Management_System.Controllers
         public IActionResult Create()
         {
             return View(new ClassViewModel());
+
         }
         [HttpPost]
         public async Task<IActionResult> Create(ClassViewModel model)
@@ -31,34 +32,35 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
+
                 Class classnew = new Class()
                 {
                     ClassName = model.ClassName
                 };
 
                 await _classrepo.AddClassAsync(classnew);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Class");
             };
             return View(model);
-
         }
         public IActionResult Edit(int id)
         {
             Class cl = _classrepo.GetClassById(id);
             return View(cl);
+       
         }
 
         [HttpPost]
         public IActionResult Edit(Class cl)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 _classrepo.UpdateClass(cl);
-                return Redirect("/Class");
-
+                return RedirectToAction("Index");
             }
-            return View(cl);
-
+           
+                return View(cl);
+            
 
         }
 
