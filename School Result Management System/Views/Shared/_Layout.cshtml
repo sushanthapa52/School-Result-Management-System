@@ -99,26 +99,14 @@
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../../index.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v1</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../index2.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../../index3.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
-                            </ul>
+
+                            @* <li class="nav-item">
+                                <a href="../../index3.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Dashboard v3</p>
+                                </a>
+                                </li>*@
+
                         </li>
 
 
@@ -138,7 +126,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../forms/advanced.html" class="nav-link">
+                                    <a asp-controller="Class" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Manage Classes</p>
                                     </a>
@@ -168,7 +156,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="../forms/editors.html" class="nav-link">
+                                    <a asp-controller="ClassSubject" asp-action="Create" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Subject Combination</p>
                                     </a>
@@ -240,8 +228,6 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-           
-
             <!-- Main content -->
             <section class="content">
 

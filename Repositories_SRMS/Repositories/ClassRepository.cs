@@ -34,8 +34,8 @@ namespace SRMSRepositories.Repositories
 
         public Class GetClassById(int id)
         {
-            var cl= _sc.Classes.Find(id);
-            return cl;
+            var cls= _sc.Classes.Find(id);
+            return cls;
         }
 
 
@@ -58,6 +58,15 @@ namespace SRMSRepositories.Repositories
 
             
         }
+
+        public bool ClassExists(string classname)
+        {
+                Class? cls=_sc.Classes.FirstOrDefault(x=>x.ClassName==classname);
+            if (cls!=null)
+                return true;
+            return false;
+        }
+
     }
     }
 

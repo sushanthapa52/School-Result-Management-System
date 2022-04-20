@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(options =>
 }).AddCookie(option =>
 {
     option.LoginPath = "/Login/Index";
-    option.ExpireTimeSpan = TimeSpan.FromMinutes(24 * 60);
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(24*60);
 });
 
 //Sql Server Connection though  EntityFramework

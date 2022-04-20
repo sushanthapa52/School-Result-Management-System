@@ -9,9 +9,9 @@ namespace SRMSViewModel
 {
     public class ClassSubjectViewModel
     {
-        public string? ClassName { get; set; }
+        public List<Class>? Classes{ get; set; }
 
-        public List<Subject>? subjects { get; set; }
+        public List<Subject>? ClassSubjects { get; set; }
 
     }
 }

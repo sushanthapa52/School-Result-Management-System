@@ -1,0 +1,57 @@
+﻿@model ClassSubjectViewModel
+
+
+@{
+    ViewBag.Title = "Class Subject combination";
+}
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<form>
+    <div class="form-group">
+        <div class="row d-flex justify-content-center mt-100">
+            <div class="col-md-6">
+                <label asp-for="Classes">Select Class</label>
+                 <select class="form-control justify-content-center" asp-items="@(new SelectList(Model.Classes,"Id","ClassName"))">
+               
+                  </select>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row d-flex justify-content-center mt-100">
+        <div class="col-md-6">
+            <label asp-for="ClassSubjects">Select Subjects</label>
+            <select id="choices-multiple-remove-button" asp-for="ClassSubjects" asp-items="@(new SelectList(Model.ClassSubjects,"Id","SubjectName"))" placeholder="Choose Subjects" multiple>
+               
+            </select>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $(document).ready(function(){
+
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:10,
+    searchResultLimit:10,
+    renderChoiceLimit:10
+    });
+
+
+    });
+
+</script>

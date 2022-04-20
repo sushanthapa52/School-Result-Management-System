@@ -14,7 +14,7 @@ namespace School_Result_Management_System.Controllers
         {
             _classrepo = classrepo;
         }
-        public IActionResult index()
+        public IActionResult Index()
         {
             IEnumerable<Class> classes = _classrepo.GetAllClasses();
             return View(classes);
@@ -31,12 +31,18 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
-                Class classnew = new Class()
+               if(_classrepo.ClassExists(model.ClassName))
+                {
+                 ModelState.AddModelError(string.Empty, "Class with the given classname already exists.");
+                    return View(model);
+                }
+
+                Class newclass = new Class()
                 {
                     ClassName = model.ClassName
                 };
 
-                await _classrepo.AddClassAsync(classnew);
+                await _classrepo.AddClassAsync(newclass);
                 return RedirectToAction("Index");
             };
             return View(model);
