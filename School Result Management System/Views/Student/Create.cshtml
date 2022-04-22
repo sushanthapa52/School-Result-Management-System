@@ -25,22 +25,19 @@
 </div>
 
 <div>
-<label asp-for="StudentGender"> Gender</label><br />
+    <label asp-for="StudentGender"> Gender</label><br />
             @foreach(var gender in ViewBag.Gender)
             {
                 <input type="radio" asp-for="StudentGender" value="@gender"  />@gender
             }
-       <br />     <span asp-validation-for="StudentGender" class="text-danger"></span>
 
 </div>
 
 
+
 <div class="form-group">
 <label asp-for="ClassId">Class</label><br />
- <select asp-for="ClassId"  class="form-control justify-content-center" asp-items="@(new SelectList(ViewBag.Classes,"Id","ClassName"))" placeholder="Choose Class">
-<option value="">Choose Class</option>
- </select>
-<span asp-validation-for="ClassId" class="text-danger"></span>
+ <select asp-for="ClassId" class="form-control justify-content-center" asp-items="ViewBag.Classes"></select>
 </div>
 
 
@@ -52,7 +49,7 @@
 
 <div>
     <label asp-for="StudentDob">Date of Birth</label><br />
-<input type="date" id="birthdate" name="birthdate" asp-for="StudentDob">
+<input type="date" id="birthdate"  asp-for="StudentDob">
 <span asp-validation-for="StudentDob" class="text-danger"></span>
 </div>
 

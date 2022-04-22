@@ -1,8 +1,10 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//using Microsoft.AspNetCore.Mvc.Rendering;
-using SRMSDataAccess.Models;
+using System.Web.Mvc;
 
 namespace SRMSViewModel
 {
@@ -27,13 +29,14 @@ namespace SRMSViewModel
 
 
         [Required(ErrorMessage = "Student Date of birth is required")]
-        [DataType(DataType.Date)]
-        public DateTime StudentDob { get; set; }
 
-       
+        public DateTime StudentDob { get; set; } 
 
-        [Required(ErrorMessage = "ClassName is required")]
-        public int? ClassId { get; set; } 
+      
+        public int ClassId { get; set; }
 
+        public string? classname { get; set; }
+
+        public int StudentId { get; set; }  
     }
 }
