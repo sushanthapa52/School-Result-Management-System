@@ -67,6 +67,22 @@ namespace SRMSRepositories.Repositories
             return false;
         }
 
+        public async Task AddSubjectsToClassAsync(List<int> subject_ids, int classid)
+        {
+            List<ClassSubjectRelation> classsubjects = new List<ClassSubjectRelation>();
+            
+            foreach(int sid in subject_ids)
+            {
+                classsubjects.Add(new ClassSubjectRelation
+                {
+                    ClassId = classid,
+                    SubjectId = sid
+                });
+            }
+            await _sc.ClassSubjectRelations.AddRangeAsync(classsubjects);
+          await   _sc.SaveChangesAsync();
+        }
+
     }
     }
 

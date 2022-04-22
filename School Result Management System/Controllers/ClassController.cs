@@ -24,6 +24,7 @@ namespace School_Result_Management_System.Controllers
         public IActionResult Create()
         {
             return View(new ClassViewModel());
+
         }
         [HttpPost]
         public async Task<IActionResult> Create(ClassViewModel model)
@@ -46,31 +47,31 @@ namespace School_Result_Management_System.Controllers
                 return RedirectToAction("Index");
             };
             return View(model);
-
         }
         public IActionResult Edit(int id)
         {
             Class cl = _classrepo.GetClassById(id);
             return View(cl);
+       
         }
 
         [HttpPost]
         public IActionResult Edit(Class cl)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 _classrepo.UpdateClass(cl);
-                return Redirect("/Class");
-
+                return RedirectToAction("Index");
             }
-            return View(cl);
-
+           
+                return View(cl);
+            
 
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _classrepo.RemoveClassAsync(id);
+           await  _classrepo.RemoveClassAsync(id);
             return Redirect("/Class");
         }
 

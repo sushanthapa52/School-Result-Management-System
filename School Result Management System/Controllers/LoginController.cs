@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SchoolResultManagementSystem.Models;
 using SRMSRepositories.IRepositories;
 using SRMSViewModel;
 using System.Security.Claims;
@@ -60,5 +59,11 @@ namespace School_Result_Management_System.Controllers
 
 
         }
+
+
+        //public async Task<IActionResult> LogOut()
+        //{
+        //    await HttpContext.SignOutAsync();
+        //}
     }
 }

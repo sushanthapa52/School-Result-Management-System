@@ -23,7 +23,9 @@
                                 <label asp-for="SubjectName"></label>
                                 <input asp-for="SubjectName" class="form-control" placeholder="Subject Name" />
                                 <span asp-validation-for="SubjectName" class="text-danger"></span>
-                                
+
+                                <div asp-validation-summary="All" class="text-danger"> </div>
+                          
                             </div>
                            
                                 

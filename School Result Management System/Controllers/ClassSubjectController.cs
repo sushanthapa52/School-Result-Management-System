@@ -19,10 +19,25 @@ namespace School_Result_Management_System.Controllers
 
             ClassSubjectViewModel model = new ClassSubjectViewModel()
             {
-                Classes = _classrepo.GetAllClasses().ToList(),
                 ClassSubjects = _subrepo.GetAllSubjects().ToList()
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ClassSubjectViewModel model,int id)
+        {
+           
+
+            if (ModelState.IsValid)
+            {
+             await   _classrepo.AddSubjectsToClassAsync(model.SubjectIds,id);
+
+            }
+            model.ClassSubjects = _subrepo.GetAllSubjects().ToList();
+            return View(model);
+
+
         }
     }
 }

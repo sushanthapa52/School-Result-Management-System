@@ -57,6 +57,15 @@ namespace SRMSRepositories.Repositories
             _sc.SaveChanges();
             return subjectupdates;
         }
+        public bool SubjectExists(string subjectname)
+        {
+            Subject? subj = _sc.Subjects.FirstOrDefault(x => x.SubjectName == subjectname);
+            if(subj != null)
+                return true;    
+            return false;
+
+           
+        }
     }
 
 }

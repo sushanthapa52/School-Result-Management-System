@@ -21,5 +21,6 @@ namespace SRMSRepositories.IRepositories
         Task RemoveClassAsync(int id);
 
         bool ClassExists(string classname);
+        Task AddSubjectsToClassAsync(List<int> ids, int classid);
     }
 }
