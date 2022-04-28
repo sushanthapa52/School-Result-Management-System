@@ -19,7 +19,7 @@
  <div class="row d-flex justify-content-center mt-100">
         <div class="col-md-6">
             <label asp-for="SubjectIds">Select Subjects</label>
-            <select id="choices-multiple-remove-button" asp-for="SubjectIds" asp-items="@(new SelectList(Model.ClassSubjects,"Id","SubjectName"))" placeholder="Choose Subjects" multiple>
+            <select id="choices-multiple-remove-button" asp-for="SubjectIds"  asp-items="@(new SelectList(Model.ClassSubjects,"Id","SubjectName"))" placeholder="Choose Subjects" multiple>
             </select>
              <span asp-validation-for="SubjectIds" class="text-danger"></span>
         </div>

@@ -70,17 +70,41 @@ namespace SRMSRepositories.Repositories
         public async Task AddSubjectsToClassAsync(List<int> subject_ids, int classid)
         {
             List<ClassSubjectRelation> classsubjects = new List<ClassSubjectRelation>();
-            
-            foreach(int sid in subject_ids)
-            {
-                classsubjects.Add(new ClassSubjectRelation
+
+            List<ClassSubjectRelation> previousdata = _sc.ClassSubjectRelations.Where(x => x.ClassId == classid).ToList();
+            _sc.ClassSubjectRelations.RemoveRange(previousdata);
+            if (subject_ids.Count()>0) {
+               
+                foreach (int sid in subject_ids)
                 {
-                    ClassId = classid,
-                    SubjectId = sid
-                });
+
+                    classsubjects.Add(new ClassSubjectRelation
+                    {
+                        ClassId = classid,
+                        SubjectId = sid
+                    });
+                }
+                await _sc.ClassSubjectRelations.AddRangeAsync(classsubjects);
+                await _sc.SaveChangesAsync();
+               
             }
-            await _sc.ClassSubjectRelations.AddRangeAsync(classsubjects);
-          await   _sc.SaveChangesAsync();
+          
+
+
+           
+           
+        }
+
+        public  List<int> GetSubjectsByClassId(int classid)
+        {
+          IEnumerable<ClassSubjectRelation> ClassSubjectlist= _sc.ClassSubjectRelations.Where(x => x.ClassId == classid);
+          List<int> SubjectIds=new List<int>();
+            foreach(ClassSubjectRelation classsubject in ClassSubjectlist)
+            {
+                SubjectIds.Add(classsubject.SubjectId);
+            }
+
+            return SubjectIds;
         }
 
     }

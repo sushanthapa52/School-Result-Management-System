@@ -14,11 +14,12 @@ namespace School_Result_Management_System.Controllers
             _subrepo = subrepo;
             _classrepo=classrepo;
         }
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
 
             ClassSubjectViewModel model = new ClassSubjectViewModel()
             {
+                SubjectIds = _classrepo.GetSubjectsByClassId(id),
                 ClassSubjects = _subrepo.GetAllSubjects().ToList()
             };
             return View(model);
@@ -31,7 +32,7 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
-             await   _classrepo.AddSubjectsToClassAsync(model.SubjectIds,id);
+             await  _classrepo.AddSubjectsToClassAsync(model.SubjectIds,id);
 
             }
             model.ClassSubjects = _subrepo.GetAllSubjects().ToList();

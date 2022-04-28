@@ -12,7 +12,7 @@ namespace SRMSViewModel
     {
        
 
-        [Required(ErrorMessage="Please select the subjects.")]
+       
         public List<int>? SubjectIds { get; set; }
 
         public List<Subject>? ClassSubjects { get; set; } 

@@ -22,5 +22,6 @@ namespace SRMSRepositories.IRepositories
 
         bool ClassExists(string classname);
         Task AddSubjectsToClassAsync(List<int> ids, int classid);
+        List<int> GetSubjectsByClassId(int classid);
     }
 }
