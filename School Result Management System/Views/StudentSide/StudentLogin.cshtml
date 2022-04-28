@@ -1,0 +1,53 @@
+﻿@model StudentLoginViewModel
+@{
+    ViewBag.Title = "StudentLogin";
+    Layout = null;
+}
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Student Result Management System
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form" method="post">
+                        <fieldset>
+
+                            <div>
+                            <div class="form-group">
+                                <label asp-for="StudentRollId"></label>
+                                <input asp-for="StudentRollId" class="form-control" placeholder="Enter your Roll Number" />
+                                <span asp-validation-for="StudentRollId" class="text-danger"></span>
+                                
+                            </div>
+                             <div class="form-group mb-5" >
+                                <label asp-for="ClassId">Select Class</label>
+                                <select class="form-control"  id="choices-multiple-remove-button" asp-for="ClassId" asp-items="ViewBag.Classes">
+                                </select>
+                               </div>
+                                 <div asp-validation-summary="All" class="text-danger"></div>
+                               
+                            </div>
+                             <button type="submit" class="btn btn-lg btn-success btn-block">Search</button>
+                           
+                        </fieldset>
+                    </form>
+
+                                                 <a type="submit" asp-controller= "Login" asp-action="Index">Login as Admin</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

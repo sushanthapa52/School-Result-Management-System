@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace SRMSViewModel
 {
-    public class ClassSubjectViewModel
+    public class StudentLoginViewModel
     {
-       
 
-        [Required(ErrorMessage="Please select the subjects.")]
-        public List<int>? SubjectIds { get; set; }
+        [Required]
+        public string? StudentRollId { get; set; }
 
-        public List<Subject>? ClassSubjects { get; set; } 
+        [Required]
+        public int ClassId { get; set; }
+
 
     }
 }

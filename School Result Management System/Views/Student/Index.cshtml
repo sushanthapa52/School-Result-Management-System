@@ -128,7 +128,8 @@ table.table td .add {
                         <td>
                            
                             <a class="edit" asp-action="Edit" asp-route-id="@student.StudentId"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" asp-action="Delete" asp-route-id="@student.StudentId"><i class="material-icons">&#xE872;</i></a>
+                            <a class="delete" asp-action="Delete" asp-route-id="@student.StudentId" onclick="return confirm('Are you sure you want to delete this item?')"><i class="material-icons">&#xE872;</i></a>
+
                         </td>
                         </tr>
                     }

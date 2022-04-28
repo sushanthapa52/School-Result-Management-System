@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace School_Result_Management_System.Controllers
 {
-    public class StudentController : Microsoft.AspNetCore.Mvc.Controller
+    public class StudentController : Controller
     {
         private readonly IStudentRepository _studentrepo;
         private readonly IClassRepository _classrepo;
@@ -21,13 +21,13 @@ namespace School_Result_Management_System.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Student> students= _studentrepo.GetAllStudents();
+            IEnumerable<Student> students = _studentrepo.GetAllStudents();
 
             List<StudentViewModel> stdList = new List<StudentViewModel>();
 
 
 
-            foreach(Student student in students)
+            foreach (Student student in students)
             {
                 stdList.Add(new StudentViewModel
                 {
@@ -35,19 +35,19 @@ namespace School_Result_Management_System.Controllers
                     StudentName = student.StudentName,
                     StudentRollNo = student.StudentRollNo,
                     classname = _classrepo.GetClassById(student.ClassId).ClassName
-                    
+
                 });
-                
-            } 
+
+            }
 
             return View(stdList);
         }
         [HttpGet]
         public IActionResult Create()
         {
-       
 
-                var classes = _classrepo.GetAllClasses();
+
+            var classes = _classrepo.GetAllClasses();
             ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
 
             ViewBag.Gender = new[] { "Male", "Female", "Others" };
@@ -61,7 +61,7 @@ namespace School_Result_Management_System.Controllers
         public async Task<IActionResult> Create(StudentViewModel model)
         {
 
-            var classes = _classrepo.GetAllClasses();
+           var classes = _classrepo.GetAllClasses();
             ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
 
             ViewBag.Gender = new[] { "Male", "Female", "Others" };
@@ -70,17 +70,37 @@ namespace School_Result_Management_System.Controllers
             {
 
 
+
                 Student Std = new Student()
-                {  
-                    ClassId= model.ClassId,
+                {
+                    ClassId = model.ClassId,
                     StudentName = model.StudentName,
-                    StudentRollNo= model.StudentRollNo,
-                    StudentDob =model.StudentDob,
-                    StudentEmailId=model.StudentEmailId,
-                    StudentGender=model.StudentGender,
+                    StudentRollNo = model.StudentRollNo,
+                    StudentDob = model.StudentDob,
+                    StudentEmailId = model.StudentEmailId,
+                    StudentGender = model.StudentGender,
                 };
+
+                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo));
+                {
+                    ModelState.AddModelError(string.Empty, "Roll number already exists.");
+
+                    return View(model);
+
+                }
+
+
+                if (_studentrepo.EmailAlreadyExists(Std.StudentEmailId))
+                {
+                    ModelState.AddModelError(string.Empty, "Email already exists.");
+
+                    return View(model);
+
+                }
                 await _studentrepo.AddStudentsAsync(Std);
                 return RedirectToAction("Index");
+
+
 
 
             }
@@ -93,17 +113,62 @@ namespace School_Result_Management_System.Controllers
         {
             var classes = _classrepo.GetAllClasses();
             Student student = _studentrepo.GetStudentById(id);
+            StudentViewModel model = new StudentViewModel()
+            {
+                StudentId = student.Id,
+                StudentName = student.StudentName,
+                StudentRollNo = student.StudentRollNo,
+                StudentDob = student.StudentDob,
+                StudentEmailId = student.StudentEmailId,
+                StudentGender = student.StudentGender,
+                ClassId = student.ClassId,
+
+
+            };
             ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
 
             ViewBag.Gender = new[] { "Male", "Female", "Others" };
 
-
-           
-       
-            return View(student);
+            return View(model);
 
         }
 
-     
+        [HttpPost]
+        public async Task<IActionResult> Edit(StudentViewModel model)
+        {
+
+            var classes = _classrepo.GetAllClasses();
+            ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
+
+            ViewBag.Gender = new[] { "Male", "Female", "Others" };
+            if (ModelState.IsValid)
+
+            {
+
+                Student student = new Student
+                { 
+                   
+                    Id=model.StudentId,
+                    ClassId=model.ClassId,
+                    StudentGender = model.StudentGender,
+                    StudentEmailId= model.StudentEmailId,
+                    StudentDob=model.StudentDob,
+                    StudentName=model.StudentName,
+                    StudentRollNo=model.StudentRollNo
+                    
+                };
+               await _studentrepo.UpdateStudentAsync(student);
+                
+                Redirect("/Student/Index");
+
+            }
+            return View(model);
+
+        }
+        public IActionResult Delete(int id)
+        {
+            _studentrepo.RemoveStudent(id);
+             return RedirectToAction("Index");
+        }
     }
 }

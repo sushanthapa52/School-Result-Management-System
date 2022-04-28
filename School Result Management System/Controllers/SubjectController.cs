@@ -81,7 +81,7 @@ namespace School_Result_Management_System.Controllers
         public IActionResult Delete(int id)
         {
 
-            _subjectrepo.RemoveSubject(id);
+           var student=_subjectrepo.RemoveSubject(id);
             return Redirect("/Subject");
 
         }

@@ -23,15 +23,56 @@ namespace SRMSRepositories.Repositories
         }
         public async Task<Student> AddStudentsAsync(Student std)
         {
+
             await _sc.Students.AddAsync(std);
             await _sc.SaveChangesAsync();
             return std;
 
 
         }
+        public  Student GetStudentById(int id)
+        {
+            var std = _sc.Students.Find(id);
+            return std;
+        }
 
+        public async Task<Student> UpdateStudentAsync(Student studentupdates)
+        {
 
+           var student= _sc.Students.Attach(studentupdates);
+            student.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            await _sc.SaveChangesAsync();
+            return studentupdates;
+        }
 
+        public void RemoveStudent(int id)
+        {
+            var student = _sc.Students.Find(id);
+            if (student != null)
+            {
+                _sc.Remove(student);
+                _sc.SaveChanges();
+            }
+        }
+
+        public bool EmailAlreadyExists(string emailaddress)
+        {
+            Student std = _sc.Students.FirstOrDefault(x => x.StudentEmailId == emailaddress);
+            if (std != null)
+                return true;
+
+            return false; 
+
+        }
+        public bool RollIdAlreadyExists(string rollId)
+        {
+            Student std = _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rollId);
+            if (std != null)
+                return true;
+
+            return false;
+
+        }
 
     }
 }

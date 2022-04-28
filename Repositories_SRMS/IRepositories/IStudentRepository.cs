@@ -9,5 +9,11 @@ namespace SRMSRepositories.IRepositories
 
        IEnumerable<Student> GetAllStudents();
         Task<Student> AddStudentsAsync(Student std);
+        Student GetStudentById(int id);
+        Task<Student> UpdateStudentAsync(Student studentupdates);
+        void RemoveStudent(int id);
+
+        bool EmailAlreadyExists(string emailaddress);
+        bool RollIdAlreadyExists(string rollId);
     }
 }

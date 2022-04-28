@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Web.Mvc;
 
 namespace SRMSViewModel
 {
     public class StudentViewModel
     {
+        [StringLength(100)]
 
         [Required(ErrorMessage = "Student Name is required")]
         public string StudentName { get; set; } = null!;
@@ -20,6 +20,8 @@ namespace SRMSViewModel
 
 
         [Required(ErrorMessage = "Student Email ID is required")]
+        //[ValidEmailAddress]
+        [StringLength(50)]
 
         public string StudentEmailId { get; set; } = null!;
 
@@ -30,7 +32,7 @@ namespace SRMSViewModel
 
         [Required(ErrorMessage = "Student Date of birth is required")]
 
-        public DateTime StudentDob { get; set; } 
+        public DateTime StudentDob { get; set; }
 
       
         public int ClassId { get; set; }
