@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.IRepositories
 {
-    public interface IExamRepository : IRepository<Exam, int>
+    public interface IExamRepository
     {
+       IEnumerable<Exam> GetAllExams();
+       Task<Exam> AddExamAsync(Exam exam);
+
     }
 }

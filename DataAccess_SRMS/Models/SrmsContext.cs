@@ -51,30 +51,21 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.AddedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("added_on");
-
                 entity.Property(e => e.ClassId).HasColumnName("class_id");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("name");
+                entity.Property(e => e.ExamYear).HasColumnName("exam_year");
 
-                entity.Property(e => e.ResultDate)
-                    .HasColumnType("date")
-                    .HasColumnName("result_date");
+
 
                 entity.Property(e => e.ResultPublished)
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("result_published");
 
-                entity.Property(e => e.Status)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("status");
             });
 
             modelBuilder.Entity<Mark>(entity =>

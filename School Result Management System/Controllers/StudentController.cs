@@ -76,7 +76,7 @@ namespace School_Result_Management_System.Controllers
                     ClassId = model.ClassId,
                     StudentName = model.StudentName,
                     StudentRollNo = model.StudentRollNo,
-                    StudentDob = model.StudentDob,
+                    StudentDob = model.StudentDob.Value,
                     StudentEmailId = model.StudentEmailId,
                     StudentGender = model.StudentGender,
                 };
@@ -152,7 +152,7 @@ namespace School_Result_Management_System.Controllers
                     ClassId=model.ClassId,
                     StudentGender = model.StudentGender,
                     StudentEmailId= model.StudentEmailId,
-                    StudentDob=model.StudentDob,
+                    StudentDob=model.StudentDob.Value,
                     StudentName=model.StudentName,
                     StudentRollNo=model.StudentRollNo
                     

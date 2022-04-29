@@ -31,8 +31,8 @@ namespace SRMSViewModel
 
 
         [Required(ErrorMessage = "Student Date of birth is required")]
-
-        public DateTime StudentDob { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? StudentDob { get; set; }
 
       
         public int ClassId { get; set; }

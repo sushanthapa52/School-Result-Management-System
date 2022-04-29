@@ -8,10 +8,26 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.Repositories
 {
-    public class ExamRepository : Repository<Exam, int>, IExamRepository
+    public class ExamRepository : IExamRepository
     {
-        public ExamRepository(SrmsContext sc) : base(sc)
+        private readonly SrmsContext _sc;
+
+        public ExamRepository(SrmsContext sc) 
         {
+            _sc = sc;
         }
+
+        public async Task<Exam> AddExamAsync(Exam exam)
+        {
+          await  _sc.Exams.AddAsync(exam);
+           await _sc.SaveChangesAsync();
+            return exam;    
+
+        }
+        public IEnumerable<Exam> GetAllExams()
+        {
+            return _sc.Exams;
+        }
+
     }
 }

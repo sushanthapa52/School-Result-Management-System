@@ -6,11 +6,9 @@ namespace SRMSDataAccess.Models
     public partial class Exam
     {
         public int Id { get; set; }
+        public int ExamYear { get; set; }
         public string Name { get; set; } = null!;
-        public DateTime ResultDate { get; set; }
-        public string ResultPublished { get; set; } = null!;
-        public string Status { get; set; } = null!;
-        public DateTime AddedOn { get; set; }
-        public int? ClassId { get; set; }
+        public bool ResultPublished { get; set; }
+        public int ClassId { get; set; }
     }
 }
