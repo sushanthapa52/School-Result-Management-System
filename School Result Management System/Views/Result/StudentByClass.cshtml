@@ -1,0 +1,42 @@
+﻿@model List<Student>
+@{
+
+    ViewBag.Title = "Students";
+}
+
+@if (Model.Any())
+{
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Student student in Model)
+            {
+                <tr>
+                    <td>@student.StudentName</td>
+                    <td>@student.StudentRollNo</td>
+
+                    <td><a asp-action="AddResults" asp-route-id="@student.Id">Add Results</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+
+    <div class="card mb-5">
+        <div class="card-body text-danger">No Students in class.</div>
+    </div>
+   
+}

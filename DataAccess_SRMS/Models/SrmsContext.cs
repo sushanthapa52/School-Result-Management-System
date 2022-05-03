@@ -77,11 +77,11 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.SubjectId).HasColumnName("subject_id");
 
-                entity.HasOne(d => d.Result)
-                    .WithMany(p => p.Marks)
-                    .HasForeignKey(d => d.ResultId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__marks__result_id__72C60C4A");
+                //entity.HasOne(d => d.Result)
+                //    .WithMany(p => p.Marks)
+                //    .HasForeignKey(d => d.ResultId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__marks__result_id__72C60C4A");
 
               
             });
@@ -96,33 +96,25 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.ExamId).HasColumnName("exam_id");
 
-                entity.Property(e => e.ResultAddedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("result_added_by");
+                
 
-                entity.Property(e => e.ResultPercentage)
-                    .HasColumnType("decimal(5, 2)")
-                    .HasColumnName("result_percentage");
+               
 
-                entity.Property(e => e.ResultStatus)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("result_status");
+               
 
                 entity.Property(e => e.StudentId).HasColumnName("student_id");
 
-                entity.HasOne(d => d.Class)
-                    .WithMany(p => p.Results)
-                    .HasForeignKey(d => d.ClassId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__result__class_id__74AE54BC");
+                //entity.HasOne(d => d.Class)
+                //    .WithMany(p => p.Results)
+                //    .HasForeignKey(d => d.ClassId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__result__class_id__74AE54BC");
 
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.Results)
-                    .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__result__student___778AC167");
+                //entity.HasOne(d => d.Student)
+                //    .WithMany(p => p.Results)
+                //    .HasForeignKey(d => d.StudentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__result__student___778AC167");
             });
 
             modelBuilder.Entity<Student>(entity =>

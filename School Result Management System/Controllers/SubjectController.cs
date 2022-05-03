@@ -7,7 +7,7 @@ using SRMSViewModel;
 
 namespace School_Result_Management_System.Controllers
 {
-    [Authorize]
+   [Authorize]
     public class SubjectController : Controller
     {
         private ISubjectRepository _subjectrepo;

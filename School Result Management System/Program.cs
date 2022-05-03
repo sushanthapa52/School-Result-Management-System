@@ -37,7 +37,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IClassRepository, ClassRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
-
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
+builder.Services.AddScoped<IMarkRepository, MarkRepository>();
 
 
 
@@ -60,7 +61,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=StudentSide}/{action=StudentLogin}/{id?}");
+    pattern: "{controller=StudentSide}/{action=Index}/{id?}");
 
 
 

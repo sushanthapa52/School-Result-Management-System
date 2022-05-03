@@ -16,5 +16,12 @@ namespace SRMSRepositories.Repositories
         {
             _sc = sc;
         }
+
+        public async Task<Result> AddResultAsync(Result model)
+        {
+            await _sc.Results.AddAsync(model);
+            await _sc.SaveChangesAsync();
+            return model;
+        }
     }
 }

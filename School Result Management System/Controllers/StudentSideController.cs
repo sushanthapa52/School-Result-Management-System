@@ -16,8 +16,9 @@ namespace School_Result_Management_System.Controllers
             _studentrepo=studentrepo;
             _classrepo = classrepo;
         }
-        [Authorize]
-        public IActionResult StudentLogin()
+
+        [AllowAnonymous]
+        public IActionResult Index()
         {
 
             var classes = _classrepo.GetAllClasses();

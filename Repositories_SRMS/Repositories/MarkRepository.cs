@@ -8,10 +8,21 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.Repositories
 {
-    public class MarkRepository : Repository<Mark, int>, IMarkRepository
+    public class MarkRepository :  IMarkRepository
     {
-        public MarkRepository(SrmsContext sc) : base(sc)
+        private readonly SrmsContext _sc;
+        public MarkRepository(SrmsContext sc) 
         {
+
+            _sc = sc;
         }
+
+        public async Task AddMarksAsync(List<Mark> marks)
+        {
+            _sc.Marks.AddRange(marks);
+            await _sc.SaveChangesAsync();
+            
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using SchoolResultManagementSystem.Models;
-using SRMSRepositories.IRepositories;
+
 using System.Diagnostics;
 
 namespace SchoolResultManagementSystem.Controllers
@@ -25,10 +25,11 @@ namespace SchoolResultManagementSystem.Controllers
         }
 
       
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+     [AllowAnonymous]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var exceptionDetails = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            return View("Error");
         }
     }
 }

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.IRepositories
 {
-    public interface IMarkRepository : IRepository<Mark, int>
+    public interface IMarkRepository 
     {
+        Task AddMarksAsync(List<Mark> marks);
     }
 }

@@ -32,9 +32,9 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
-               if(_classrepo.ClassExists(model.ClassName))
+                if (_classrepo.ClassExists(model.ClassName))
                 {
-                 ModelState.AddModelError(string.Empty, "Class with the given classname already exists.");
+                    ModelState.AddModelError(string.Empty, "Class with the given classname already exists.");
                     return View(model);
                 }
 
@@ -52,27 +52,39 @@ namespace School_Result_Management_System.Controllers
         {
             Class cl = _classrepo.GetClassById(id);
             return View(cl);
-       
+
         }
 
         [HttpPost]
         public IActionResult Edit(Class cl)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _classrepo.UpdateClass(cl);
                 return RedirectToAction("Index");
             }
-           
-                return View(cl);
-            
+
+            return View(cl);
+
 
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-           await  _classrepo.RemoveClassAsync(id);
-            return Redirect("/Class");
+            try
+            {
+                await _classrepo.RemoveClassAsync(id);
+                return Redirect("/Class");
+            }
+            catch (Exception ex)
+            {
+                Class cls = _classrepo.GetClassById(id);
+                ViewBag.ErrorMessage = $"{cls.ClassName} class has been assigned to the students." +
+                    $"Please make sure the class hasn't been assigned to any students before deleting it."
+                    + $"If you want to delete the class, delete the students to which this class has been assigned and try again";
+                return View("Error");
+            }
+
         }
 
 

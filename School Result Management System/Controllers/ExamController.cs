@@ -34,6 +34,9 @@ namespace School_Result_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ExamViewModel examViewModel)
         {
+            var classes = _classrepo.GetAllClasses();
+            ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
+
 
             if (ModelState.IsValid)
             {
@@ -53,30 +56,30 @@ namespace School_Result_Management_System.Controllers
             return View(examViewModel);
         }
    
-      [HttpGet]
+      //[HttpGet]
 
-      public IActionResult Edit(int id)
-        {
+      //public IActionResult Edit(int id)
+      //  {
 
-            ExamClassRelation examClassRelation = _examrepo.GetExamClassById(id);
+      //      ExamClassRelation examClassRelation = _examrepo.GetExamClassById(id);
 
-            IEnumerable<Exam> examsList = _examrepo.GetAllExams();
-            ViewBag.Exams = new SelectList(examsList, "Id", "Name");
+      //      IEnumerable<Exam> examsList = _examrepo.GetAllExams();
+      //      ViewBag.Exams = new SelectList(examsList, "Id", "Name");
 
-            IEnumerable<Class> classList = _classrepo.GetAllClasses();
-            ViewBag.Class = new SelectList(classList, "Id", "ClassName");
+      //      IEnumerable<Class> classList = _classrepo.GetAllClasses();
+      //      ViewBag.Class = new SelectList(classList, "Id", "ClassName");
 
-            ExamViewModel exam = new ExamViewModel()
-            {
-                ResultPublished = examClassRelation.ResultPublished,
-                ExamYear = examClassRelation.ExamYear
+      //      ExamViewModel exam = new ExamViewModel()
+      //      {
+      //          ResultPublished = examClassRelation.ResultPublished,
+      //          ExamYear = examClassRelation.ExamYear
 
-            };
+      //      };
 
-            return View(exam);
+      //      return View(exam);
             
     
-        }
+      //  }
       
 
     }

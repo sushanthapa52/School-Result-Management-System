@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 
 namespace School_Result_Management_System.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentrepo;
@@ -81,7 +83,7 @@ namespace School_Result_Management_System.Controllers
                     StudentGender = model.StudentGender,
                 };
 
-                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo));
+                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo))
                 {
                     ModelState.AddModelError(string.Empty, "Roll number already exists.");
 
