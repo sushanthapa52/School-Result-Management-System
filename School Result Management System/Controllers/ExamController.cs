@@ -17,44 +17,17 @@ namespace School_Result_Management_System.Controllers
             _examrepo = examrepo;
 
         }
-        public IActionResult Index()
-        {
-            var exams= _examrepo.GetAllExams();
-
-            List<ExamViewModel> listOfExams= new List<ExamViewModel>();
-
-            foreach(Exam exam in exams)
-            {
-                listOfExams.Add(new ExamViewModel
-                {
-                    ExamName = exam.Name,
-                    ResultPublished = exam.ResultPublished,
-                    ClassName = _classrepo.GetClassById(exam.ClassId).ClassName
-                });
-                
-            }
-            return View(listOfExams);
-        }
-
+      
         
         [HttpGet]
         public IActionResult Create()
         {
-            //List<String> examtypes = new List<string>{
-            //    "First Unit Test",
-            //    "First Term",
-            //    "Second Unit Test",
-            //    "Second Term",
-            //    "Third Unit Test",
-            //    "Third Term",
-            //    "Fourth Unit Test",
-            //    "Final Term"
-            //};
-            //ViewBag.ExamType = new SelectList(examtypes);
+            IEnumerable<Exam> examsList = _examrepo.GetAllExams();
+            ViewBag.Exams = new SelectList(examsList, "Id", "Name");
 
+            IEnumerable<Class> classList = _classrepo.GetAllClasses();
+            ViewBag.Class = new SelectList(classList, "Id", "ClassName");
 
-            var classes= _classrepo.GetAllClasses();
-            ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
 
             return View();
         }
@@ -64,25 +37,47 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
-                Exam exam = new Exam()
+                ExamClassRelation exam = new ExamClassRelation()
                 {
-                    Name = examViewModel.ExamName,
-                    ClassId = examViewModel.ClassId,
-                    ExamYear = examViewModel.ExamYear.Value,
+                    ClassID = examViewModel.ClassID,
+                    ExamId= examViewModel.Examid,
+                    ExamYear = examViewModel.ExamYear,
+                    ResultPublished = examViewModel.ResultPublished
                 };
 
                 await _examrepo.AddExamAsync(exam);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
 
             }
-             
-            
             return View(examViewModel);
-
-
-
         }
+   
+      [HttpGet]
+
+      public IActionResult Edit(int id)
+        {
+
+            ExamClassRelation examClassRelation = _examrepo.GetExamClassById(id);
+
+            IEnumerable<Exam> examsList = _examrepo.GetAllExams();
+            ViewBag.Exams = new SelectList(examsList, "Id", "Name");
+
+            IEnumerable<Class> classList = _classrepo.GetAllClasses();
+            ViewBag.Class = new SelectList(classList, "Id", "ClassName");
+
+            ExamViewModel exam = new ExamViewModel()
+            {
+                ResultPublished = examClassRelation.ResultPublished,
+                ExamYear = examClassRelation.ExamYear
+
+            };
+
+            return View(exam);
+            
+    
+        }
+      
 
     }
 }

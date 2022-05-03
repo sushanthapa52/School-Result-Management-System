@@ -20,6 +20,8 @@ namespace SRMSDataAccess.Models
         public virtual DbSet<Result> Results { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
         public virtual DbSet<Subject> Subjects { get; set; } = null!;
+        public virtual DbSet<ExamClassRelation> ExamClassRelations { get; set; } = null!;
+
         public virtual DbSet<User> Users { get; set; } = null!;
 
         public virtual DbSet<ClassSubjectRelation> ClassSubjectRelations { get; set; } = null!; 
@@ -51,20 +53,15 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.ClassId).HasColumnName("class_id");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("name");
-                entity.Property(e => e.ExamYear).HasColumnName("exam_year");
 
 
 
-                entity.Property(e => e.ResultPublished)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("result_published");
+          
 
             });
 
@@ -240,6 +237,24 @@ namespace SRMSDataAccess.Models
                 entity.Property(e => e.ClassId).HasColumnName("class_id");
 
                 entity.Property(e => e.SubjectId).HasColumnName("subject_id");
+            });
+
+            modelBuilder.Entity<ExamClassRelation>(entity =>
+            {
+                entity.ToTable("ExamClassRelation");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ResultPublished)
+              .HasColumnName("result_published");
+
+                entity.Property(e => e.ExamId).HasColumnName("exam_id");
+
+                entity.Property(e => e.ClassID).HasColumnName("class_id");
+
+                entity.Property(e => e.ExamYear).HasColumnName("exam_year");
+
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -9,8 +9,18 @@ namespace SRMSRepositories.IRepositories
 {
     public interface IExamRepository
     {
-       IEnumerable<Exam> GetAllExams();
-       Task<Exam> AddExamAsync(Exam exam);
+        Task<ExamClassRelation> AddExamAsync(ExamClassRelation exam);
+        IEnumerable<Exam> GetAllExams();
+
+        IEnumerable<ExamClassRelation> GetAllExamDetails();
+
+         ExamClassRelation GetExamClassById(int id);
+
+        Exam GetExamById(int id);
+
+
+
+
 
     }
 }

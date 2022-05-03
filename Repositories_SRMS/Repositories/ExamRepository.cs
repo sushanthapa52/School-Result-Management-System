@@ -17,9 +17,9 @@ namespace SRMSRepositories.Repositories
             _sc = sc;
         }
 
-        public async Task<Exam> AddExamAsync(Exam exam)
+        public async Task<ExamClassRelation> AddExamAsync(ExamClassRelation exam)
         {
-          await  _sc.Exams.AddAsync(exam);
+          await  _sc.ExamClassRelations.AddAsync(exam);
            await _sc.SaveChangesAsync();
             return exam;    
 
@@ -29,5 +29,24 @@ namespace SRMSRepositories.Repositories
             return _sc.Exams;
         }
 
+        public IEnumerable<ExamClassRelation> GetAllExamDetails()
+        {
+           return _sc.ExamClassRelations;
+        }
+
+        public ExamClassRelation GetExamClassById(int id)
+        {
+            var examClass =_sc.ExamClassRelations.Find(id);
+            return examClass;
+        }
+
+        public Exam GetExamById(int id)
+        {
+           return _sc.Exams.Find(id);
+        }
+
+
     }
-}
+
+  
+    }

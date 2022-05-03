@@ -1,6 +1,6 @@
 ﻿@model ExamViewModel
 @{
-    ViewBag.Title = "Create Exam";
+    ViewBag.Title = "Edit Exam";
 }
 
 
@@ -34,7 +34,7 @@
 
                             <div class="form-group">
                                 <label asp-for="ExamYear">Exam Year</label>
-                                <input type="text" class="form-control" asp-for="ExamYear" placeholder="eg:2078" />
+                                <input class="form-control" asp-for="ExamYear" value="@Model.ExamYear" />
                                 <span asp-validation-for="ExamYear" class="text-danger"></span>
 
                             </div>

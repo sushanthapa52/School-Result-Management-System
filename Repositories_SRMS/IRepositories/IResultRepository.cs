@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.IRepositories
 {
-    public interface IResultRepository : IRepository<Result, int>
+    public interface IResultRepository
     {
     }
 }

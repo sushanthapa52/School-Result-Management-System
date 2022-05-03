@@ -1,6 +1,6 @@
-﻿@model List<ExamViewModel>
+﻿@model IEnumerable<Exam>
 @{
-    ViewBag.Title = "Students";
+    ViewBag.Title = "Exams";
 }
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
@@ -111,24 +111,22 @@ table.table td .add {
                 <thead>
                     <tr>
                         <th>Exam Name</th>
-                        <th>ClassName</th>
-                        <th>Result Published</th>
+@*                   <th>ClassName</th>
+*@                      <th> Result Published</th>
                         <th>Actions</th>
                         
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(ExamViewModel exams  in Model)
+                    @foreach (Exam particularExam  in Model)
                     {
                         <tr>
-                        <td>@exams.ExamName</td>
-                        <td>@exams.ClassId</td>
-                        <td>@exams.ResultPublished</td>
-                       
+                        <td>@particularExam.Name</td>
+                    
                         <td>
                            
-                            <a class="edit" asp-action="Edit" asp-route-id="@exams.Examid"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" asp-action="Delete" asp-route-id="@exams.Examid" onclick="return confirm('Are you sure you want to delete this item?')"><i class="material-icons">&#xE872;</i></a>
+                            <a class="edit"   asp-action="Edit" asp-route-id="@particularExam.Id"><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete" asp-action="Delete" asp-route-id="@particularExam.Id" onclick="return confirm('Are you sure you want to delete this item?')"><i class="material-icons">&#xE872;</i></a>
 
                         </td>
                         </tr>

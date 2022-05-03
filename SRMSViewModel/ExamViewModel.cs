@@ -9,20 +9,16 @@ namespace SRMSViewModel
 {
     public  class ExamViewModel
     {
- 
-
-        [Required(ErrorMessage = "Exam Year is required")]
-        public int? ExamYear { get; set; } = null!;
-
-        [Required(ErrorMessage = "Exam Name is required")]
-
-        public string ExamName { get; set; } = null!;
-
-
+        [Required]
         public int Examid { get; set; }
-        public bool ResultPublished { get; set; }
-        public int ClassId { get; set; }
-        public string ClassName { get; set; }
+        [Required]
 
+        public int ClassID { get; set; }
+        [Required]
+
+        public int ExamYear { get; set; }
+        [Required]
+
+        public bool ResultPublished { get; set; }
     }
 }

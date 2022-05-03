@@ -1,0 +1,19 @@
+﻿@model ResultViewModel
+@{
+    ViewBag.Title = "Declare Result";
+}
+
+
+
+ <div class="form-group">
+      <label>Choose Exam </label>
+       <select asp-for="ExamId" class="form-control justify-content-center" asp-items="ViewBag.Exams"></select>
+      <span asp-validation-for="ExamId" class="text-danger"></span>
+   </div>
+
+<div class="form-group">
+<label asp-for="ClassId">Choose Class</label><br />
+ <select asp-for="ClassId" class="form-control justify-content-center" asp-items="ViewBag.Class"></select>
+</div>
+
+
