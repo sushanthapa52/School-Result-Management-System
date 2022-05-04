@@ -1,0 +1,43 @@
+﻿@model ResultViewModel
+@{
+    Layout = null;
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">@Model.ExamName--@Model.ExamYear   </h5>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form">
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label> Exam</label>
+                                <input class="form-control" value="@Model.ExamName" disabled/>
+                            </div>
+                                 <div class="form-group">
+                                <label> Class</label>
+                                <input class="form-control" value="@Model.ClassName"/>
+                            </div>
+                             <div class="form-group">
+                                <label>Student Name </label>
+                                <input class="form-control" value="@Model.student.StudentName"/>
+                            </div>
+                              <div class="form-group">
+                                <label> Student Roll Number</label>
+                                <input class="form-control" value="@Model.student.StudentRollNo"/>
+                            </div>
+                         
+
+                           
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

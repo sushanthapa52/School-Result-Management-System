@@ -36,7 +36,7 @@ namespace SRMSRepositories.Repositories
 
         public ExamClassRelation GetExamClassById(int id)
         {
-            var examClass =_sc.ExamClassRelations.Find(id);
+            var examClass =_sc.ExamClassRelations.FirstOrDefault(x=>x.ExamId==id);
             return examClass;
         }
 
@@ -44,6 +44,7 @@ namespace SRMSRepositories.Repositories
         {
            return _sc.Exams.Find(id);
         }
+      
 
 
     }

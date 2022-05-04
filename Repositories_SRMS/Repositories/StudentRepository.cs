@@ -64,7 +64,7 @@ namespace SRMSRepositories.Repositories
             return false; 
 
         }
-        public bool RollIdAlreadyExists(string rollId)
+        public bool RollIdAlreadyExists(int rollId)
         {
             Student std = _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rollId);
             if (std != null)
@@ -73,6 +73,14 @@ namespace SRMSRepositories.Repositories
             return false;
 
         }
+
+        public Student CheckStudentClassRollNo(int rid,int cid)
+        {
+
+            return _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rid && x.ClassId==cid);
+        }
+
+     
 
     }
 }

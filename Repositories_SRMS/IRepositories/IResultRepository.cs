@@ -10,5 +10,7 @@ namespace SRMSRepositories.IRepositories
     public interface IResultRepository
     {
          Task<Result> AddResultAsync(Result model);
+
+        Result GetResult(int sid);
     }
 }

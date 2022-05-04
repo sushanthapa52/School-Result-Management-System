@@ -57,7 +57,7 @@ namespace School_Result_Management_System.Controllers
                         Marks = mvm.Mark
                     });
                 }
-                _markrepo.AddMarksAsync(marks);
+                _markrepo.AddMarks(marks);
             }
            
 

@@ -12,7 +12,7 @@ namespace SRMSViewModel
     {
 
         [Required]
-        public string? StudentRollId { get; set; }
+        public int StudentRollId { get; set; }
 
         [Required]
         public int ClassId { get; set; }

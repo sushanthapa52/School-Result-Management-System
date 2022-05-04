@@ -16,7 +16,7 @@ namespace SRMSViewModel
         
         [Required(ErrorMessage = "Student Roll Number is required")]
 
-        public string StudentRollNo { get; set; } = null!;
+        public int StudentRollNo { get; set; } 
 
 
         [Required(ErrorMessage = "Student Email ID is required")]

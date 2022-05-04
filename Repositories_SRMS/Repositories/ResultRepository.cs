@@ -23,5 +23,12 @@ namespace SRMSRepositories.Repositories
             await _sc.SaveChangesAsync();
             return model;
         }
+
+        public Result GetResult(int sid)
+        {
+           return _sc.Results.FirstOrDefault(x => x.StudentId == sid);  
+        }
+
+
     }
 }

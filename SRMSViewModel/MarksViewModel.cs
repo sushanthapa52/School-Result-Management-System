@@ -11,7 +11,7 @@ namespace SRMSViewModel
     public  class MarksViewModel
     {
        
-        public Subject Subject{ get; set; }
+        public Subject? Subject{ get; set; }
 
         [Required(ErrorMessage ="Marks is required.")]
         public int Mark { get; set; }

@@ -9,6 +9,6 @@ namespace SRMSRepositories.IRepositories
 {
     public interface IMarkRepository 
     {
-        Task AddMarksAsync(List<Mark> marks);
+        void AddMarks(List<Mark> marks);
     }
 }

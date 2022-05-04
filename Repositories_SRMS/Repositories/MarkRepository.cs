@@ -17,10 +17,10 @@ namespace SRMSRepositories.Repositories
             _sc = sc;
         }
 
-        public async Task AddMarksAsync(List<Mark> marks)
+        public void AddMarks(List<Mark> marks)
         {
             _sc.Marks.AddRange(marks);
-            await _sc.SaveChangesAsync();
+            _sc.SaveChanges();
             
         }
 

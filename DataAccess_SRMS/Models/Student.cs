@@ -13,7 +13,7 @@ namespace SRMSDataAccess.Models
         public int Id { get; set; }
         public int ClassId { get; set; }
         public string StudentName { get; set; } = null!;
-        public string StudentRollNo { get; set; } = null!;
+        public int StudentRollNo { get; set; } 
         public string StudentEmailId { get; set; } = null!;
         public string StudentGender { get; set; } = null!; 
         public DateTime StudentDob { get; set; }

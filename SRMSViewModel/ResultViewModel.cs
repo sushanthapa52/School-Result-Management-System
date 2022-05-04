@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SRMSDataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,16 @@ namespace SRMSViewModel
 {
     public class ResultViewModel
     {
-        public int ExamId { get; set; }
+        public Student student { get; set; }
+        public string ExamName  { get; set; }
+        public int ExamYear { get; set; }
 
-        public int ClassId { get; set; }
-        public string ExamName { get; set; }
-        public string ClassName  { get; set; }
+        public string ClassName { get; set; }
         public string StudentName { get; set; }
+
+        public string StudentRollNo { get; set; }
+
+
+
     }
 }

@@ -145,10 +145,7 @@ namespace SRMSDataAccess.Models
                     .IsUnicode(false)
                     .HasColumnName("student_name");
 
-                entity.Property(e => e.StudentRollNo)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("student_roll_no");
+                entity.Property(e => e.StudentRollNo).HasColumnName("student_roll_no");
 
 
                 entity.HasOne(d => d.Class)
