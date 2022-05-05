@@ -1,10 +1,10 @@
-﻿@model List<Student>
+﻿@model ResultWrapper
 @{
 
     ViewBag.Title = "Students";
 }
 
-@if (Model.Any())
+@if (Model.StudentList.Any())
 {
 
 
@@ -19,13 +19,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (Student student in Model)
+            @foreach (Student student in Model.StudentList)
             {
                 <tr>
                     <td>@student.StudentName</td>
                     <td>@student.StudentRollNo</td>
 
-                    <td><a asp-action="AddResults" asp-route-id="@student.Id">Add Results</a></td>
+                    <td><a asp-controller="Mark" asp-action="AssignMarks" asp-route-id="@student.Id" asp-route-classid="@Model.ClassId" asp-route-examid="@Model.ExamId">Add Results</a></td>
                 </tr>
             }
         </tbody>

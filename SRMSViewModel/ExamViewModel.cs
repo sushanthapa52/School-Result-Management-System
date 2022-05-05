@@ -17,8 +17,8 @@ namespace SRMSViewModel
         [Required]
 
         public int ExamYear { get; set; }
-        [Required]
+     
 
-        public bool ResultPublished { get; set; }
+       
     }
 }

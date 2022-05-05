@@ -45,8 +45,18 @@ namespace SRMSRepositories.Repositories
            return _sc.Exams.Find(id);
         }
       
+        public bool ExamExists(ExamClassRelation model)
+        {
+            ExamClassRelation exam = _sc.ExamClassRelations.FirstOrDefault(x => x.ExamId == model.ExamId && x.ClassID == model.ClassID && x.ExamYear == model.ExamYear);
+                if (exam != null)
+                return true;
+
+            return false;
+        }
 
 
+
+           
     }
 
   

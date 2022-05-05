@@ -34,20 +34,28 @@ namespace School_Result_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ExamViewModel examViewModel)
         {
-            var classes = _classrepo.GetAllClasses();
-            ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
+            IEnumerable<Exam> examsList = _examrepo.GetAllExams();
+            ViewBag.Exams = new SelectList(examsList, "Id", "Name");
+
+            IEnumerable<Class> classList = _classrepo.GetAllClasses();
+            ViewBag.Class = new SelectList(classList, "Id", "ClassName");
 
 
             if (ModelState.IsValid)
             {
+
                 ExamClassRelation exam = new ExamClassRelation()
                 {
                     ClassID = examViewModel.ClassID,
                     ExamId= examViewModel.Examid,
                     ExamYear = examViewModel.ExamYear,
-                    ResultPublished = examViewModel.ResultPublished
+                   
                 };
-
+                if (_examrepo.ExamExists(exam))
+                {
+                    ModelState.AddModelError("", "Exam already registered.");
+                    return View(examViewModel);
+                }
                 await _examrepo.AddExamAsync(exam);
 
                 return RedirectToAction("index");
@@ -56,30 +64,7 @@ namespace School_Result_Management_System.Controllers
             return View(examViewModel);
         }
    
-      //[HttpGet]
-
-      //public IActionResult Edit(int id)
-      //  {
-
-      //      ExamClassRelation examClassRelation = _examrepo.GetExamClassById(id);
-
-      //      IEnumerable<Exam> examsList = _examrepo.GetAllExams();
-      //      ViewBag.Exams = new SelectList(examsList, "Id", "Name");
-
-      //      IEnumerable<Class> classList = _classrepo.GetAllClasses();
-      //      ViewBag.Class = new SelectList(classList, "Id", "ClassName");
-
-      //      ExamViewModel exam = new ExamViewModel()
-      //      {
-      //          ResultPublished = examClassRelation.ResultPublished,
-      //          ExamYear = examClassRelation.ExamYear
-
-      //      };
-
-      //      return View(exam);
-            
-    
-      //  }
+     
       
 
     }

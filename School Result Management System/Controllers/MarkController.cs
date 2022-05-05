@@ -10,25 +10,39 @@ namespace School_Result_Management_System.Controllers
         private readonly IClassRepository _classrepo;
         private readonly ISubjectRepository _subrepo;
         private readonly IMarkRepository _markrepo;
+        private readonly IResultRepository _resultrepo;
 
-        public MarkController(IClassRepository classrepo,ISubjectRepository subrepo,IMarkRepository markrepo)
+        public MarkController(IClassRepository classrepo, ISubjectRepository subrepo, IResultRepository resultrepo, IMarkRepository markrepo)
         {
             _classrepo = classrepo;
             _subrepo = subrepo;
             _markrepo = markrepo;
+            _resultrepo = resultrepo;
 
         }
 
 
-        public IActionResult AssignMarks()
+        public async Task<IActionResult> AssignMarks(int id, int classid, int examid)
         {
-            List<int> subjectIds = _classrepo.GetSubjectsByClassId(Convert.ToInt32(TempData["ClassId"]));
+            Result result = new Result()
+            {
+                ClassId = classid,
+                ExamId = examid,
+                StudentId = id
+            };
+
+            Result res = await _resultrepo.AddResultAsync(result);
+
+            List<int> subjectIds = _classrepo.GetSubjectsByClassId(classid);
             List<Subject> subjects = new List<Subject>();
-            List<MarksViewModel> model = new List<MarksViewModel>();
+            MVMWrapper model = new MVMWrapper()
+            {
+                ResultId = res.Id
+            };
             foreach (int sid in subjectIds)
             {
-                //subjects.Add();
-                model.Add(new MarksViewModel
+
+                model.mvmlist.Add(new MarksViewModel
                 {
                     Subject = _subrepo.GetAllSubjects().FirstOrDefault(x => x.Id == sid),
                     Mark = 0
@@ -42,26 +56,26 @@ namespace School_Result_Management_System.Controllers
 
 
         [HttpPost]
-        public IActionResult AssignMarks(List<MarksViewModel> model)
+        public IActionResult AssignMarks(MVMWrapper model)
         {
             if (ModelState.IsValid)
             {
-               
+
                 List<Mark> marks = new List<Mark>();
-                foreach (MarksViewModel mvm in model)
+                foreach (MarksViewModel mvm in model.mvmlist)
                 {
                     marks.Add(new Mark()
                     {
-                        ResultId = Convert.ToInt32(TempData.Peek("ResultId")),
+                        ResultId = Convert.ToInt32(model.ResultId),
                         SubjectId = mvm.Subject.Id,
                         Marks = mvm.Mark
                     });
                 }
                 _markrepo.AddMarks(marks);
             }
-           
 
-          return View(model);
+
+            return View(model);
         }
     }
 }

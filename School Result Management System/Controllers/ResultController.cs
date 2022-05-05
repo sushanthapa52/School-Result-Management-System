@@ -71,28 +71,36 @@ namespace School_Result_Management_System.Controllers
 
         public ViewResult StudentByClass()
         {
-
-            List<Student> students = _sturepo.GetAllStudents().Where(x => x.ClassId == Convert.ToInt32(TempData["ClassId"])).ToList();
-            TempData.Keep("ClassId");
-            return View(students);
-        }
-
-        public async Task<IActionResult> AddResults(int id)
-        {
-           
-            Result result = new Result()
+            List<Student> students = _sturepo.GetAllStudents().Where(x => x.ClassId == Convert.ToInt32(TempData.Peek("ClassId"))).ToList();
+            ResultWrapper rw = new ResultWrapper
             {
-                ClassId = Convert.ToInt32(TempData.Peek("ClassId")),
-               ExamId = Convert.ToInt32(TempData["ExamId"]),
-                StudentId =id
+               StudentList=students,
+               ClassId= Convert.ToInt32(TempData.Peek("ClassId")),
+               ExamId= Convert.ToInt32(TempData["ExamId"])
             };
-
-            var model=await _resultrepo.AddResultAsync(result);
-            TempData["ResultId"]=model.Id;
-            return RedirectToAction("AssignMarks","Mark");
-
-
+           
+           
+            return View(rw);
         }
+
+        //public async Task<IActionResult> AddResults(int id,int classid, int examid)
+        //{
+
+        //Result result = new Result()
+        //{
+        //    ClassId = classid,
+        //    ExamId = examid,
+        //    StudentId = id
+        //};
+
+        //var model = await _resultrepo.AddResultAsync(result);
+
+
+
+        //    return RedirectToAction("AssignMarks", "Mark"); ;
+
+
+        //}
 
 
     }

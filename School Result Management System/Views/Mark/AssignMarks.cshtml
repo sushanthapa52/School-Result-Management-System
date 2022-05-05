@@ -1,4 +1,4 @@
-﻿@model List<MarksViewModel>
+﻿@model MVMWrapper
 @{
     ViewBag.Title = "Assign Marks";
 }
@@ -6,13 +6,13 @@
 <form method="post">
 
 
-    @for (int i = 0; i < Model.Count; i++)
+    @for (int i = 0; i < Model.mvmlist.Count; i++)
     {
         <div class="form-group">
-            <label>@Model[i].Subject.SubjectName</label>
-            <input asp-for="@Model[i].Subject.Id" type="hidden" />
-            <input asp-for="@Model[i].Subject.SubjectName" type="hidden" />
-            <input asp-for="@Model[i].Mark" class="form-control" />
+            <label>@Model.mvmlist[i].Subject.SubjectName</label>
+            <input asp-for="@Model.mvmlist[i].Subject.Id" type="hidden" />
+            <input asp-for="@Model.mvmlist[i].Subject.SubjectName" type="hidden" />
+            <input asp-for="@Model.mvmlist[i].Mark" class="form-control" />
         </div>
     }
 
