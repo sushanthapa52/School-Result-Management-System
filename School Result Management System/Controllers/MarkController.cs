@@ -66,7 +66,7 @@ namespace School_Result_Management_System.Controllers
                 {
                     marks.Add(new Mark()
                     {
-                        ResultId = Convert.ToInt32(model.ResultId),
+                        ResultId = model.ResultId,
                         SubjectId = mvm.Subject.Id,
                         Marks = mvm.Mark
                     });
