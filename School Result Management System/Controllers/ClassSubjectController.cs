@@ -4,6 +4,7 @@ using SRMSViewModel;
 
 namespace School_Result_Management_System.Controllers
 {
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class ClassSubjectController : Controller
     {
         private readonly ISubjectRepository _subrepo;

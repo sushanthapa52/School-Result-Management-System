@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
@@ -6,6 +7,7 @@ using SRMSViewModel;
 
 namespace School_Result_Management_System.Controllers
 {
+    [Authorize]
     public class ExamController :Controller
     {
         private readonly IClassRepository _classrepo;

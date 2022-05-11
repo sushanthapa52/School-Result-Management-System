@@ -12,5 +12,6 @@ namespace SRMSRepositories.IRepositories
          Task<Result> AddResultAsync(Result model);
 
         Result GetResult(int sid);
+        Result ResultExists(int eid, int sid, int cid);
     }
 }

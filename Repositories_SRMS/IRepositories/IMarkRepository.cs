@@ -10,5 +10,6 @@ namespace SRMSRepositories.IRepositories
     public interface IMarkRepository 
     {
         void AddMarks(List<Mark> marks);
+        List<Mark> MarksList(int resultId);
     }
 }

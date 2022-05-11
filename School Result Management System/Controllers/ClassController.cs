@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using SRMSViewModel;
 
 namespace School_Result_Management_System.Controllers
 {
+    [Authorize]
     public class ClassController : Controller
     {
         private IClassRepository _classrepo;

@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 
 namespace SRMSViewModel
 {
- public  class MVMWrapper
+    public class MVMWrapper
     {
         public List<MarksViewModel> mvmlist { get; set; }
         public MVMWrapper()
         {
             mvmlist = new List<MarksViewModel>();
         }
-       
-
-
-
         public int ResultId { get; set; }
-        
+
     }
 }

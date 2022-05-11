@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
@@ -6,6 +7,7 @@ using SRMSViewModel;
 
 namespace School_Result_Management_System.Controllers
 {
+    [Authorize]
     public class ResultController : Controller
     {
         private readonly IClassRepository _classrepo;
@@ -58,9 +60,12 @@ namespace School_Result_Management_System.Controllers
 
             var Exam = registeredExams.Find(x => x.ExamId == model.Examid && x.ClassID == model.ClassID && x.ExamYear == model.ExamYear);
             TempData["ClassId"] = model.ClassID;
-            TempData["ExamId"] = model.Examid;
-            if (Exam != null)
+           
+            if (Exam != null) {
+                TempData["ExamId"] = Exam.Id;
                 return RedirectToAction("StudentByclass");
+            }
+               
             ModelState.AddModelError(" ", "The exam is not registered yet. please add the exam first");
             return View(model);
 
@@ -77,30 +82,14 @@ namespace School_Result_Management_System.Controllers
                StudentList=students,
                ClassId= Convert.ToInt32(TempData.Peek("ClassId")),
                ExamId= Convert.ToInt32(TempData["ExamId"])
+
             };
            
            
             return View(rw);
         }
 
-        //public async Task<IActionResult> AddResults(int id,int classid, int examid)
-        //{
-
-        //Result result = new Result()
-        //{
-        //    ClassId = classid,
-        //    ExamId = examid,
-        //    StudentId = id
-        //};
-
-        //var model = await _resultrepo.AddResultAsync(result);
-
-
-
-        //    return RedirectToAction("AssignMarks", "Mark"); ;
-
-
-        //}
+      
 
 
     }

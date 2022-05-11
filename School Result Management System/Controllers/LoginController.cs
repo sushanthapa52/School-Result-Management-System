@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace School_Result_Management_System.Controllers
 {
+   
     public class LoginController : Controller
     {
         private readonly IUserRepository _userrepo;
@@ -60,10 +61,11 @@ namespace School_Result_Management_System.Controllers
 
         }
 
-
-        //public async Task<IActionResult> LogOut()
-        //{
-        //    await HttpContext.SignOutAsync();
-        //}
+        [Authorize]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index");
+        }
     }
 }

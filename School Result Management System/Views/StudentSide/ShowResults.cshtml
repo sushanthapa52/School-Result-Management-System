@@ -1,0 +1,120 @@
+﻿@model ResultViewModel
+@{
+    Layout = null;
+
+}
+
+
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="~/dist/js/html2pdf.bundle.min.js"></script>
+
+
+
+
+<div class="container" id="parentDiv">
+
+    <h2 class="text-center">@Model.ExamName--@Model.ExamYear</h2>
+   
+    <div class="col-md-12" style="margin-top:5%">
+        <div class="col-md-10  table-responsive">
+             <table class="table-condensed" style="margin-top:3%">
+        <tbody>
+
+
+            <tr>
+                <td> <b>Student Name :</b></td>
+                <td>@Model.StudentName</td>
+
+            </tr>
+            <tr>
+                <td><b>Class:</b></td>
+                <td>@Model.ClassName</td>
+            </tr>
+            <tr>
+                <td><b>Roll Number:</b></td>
+                <td>@Model.RollNo</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+            <table class="table table-striped" style="margin-top:10%">
+                <thead>
+                    <tr>
+                        <th width="3%">S.N</th>
+                        <th>Subjects</th>
+                        <th>Full Mark</th>
+                        <th>Pass Mark</th>
+
+                        <th>Marks Obtained</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @for (int i = 0; i < Model.mvmList.Count; i++)
+                    {
+
+                        <tr>
+                            <td>@(i+1)</td>
+                            <td>@Model.mvmList[i].Subject.SubjectName</td>
+                            <td>@ViewData["FullMark"]</td>
+                            <td>@ViewData["PassMark"]</td>
+                            <td>@Model.mvmList[i].Mark</td>
+                        </tr>
+                    }
+                     </tbody>
+            </table>
+                   <table class="col-md-3 table table-striped">
+                       <tr>
+                        <td width="25%"><b>Total Marks:</b></td>
+                        <td>@ViewData["TotalMarks"]</td>
+
+                    </tr>
+                    <tr>
+                        <td><b>Total Marks Obtained:</b></td>
+                        <td>@ViewData["TotalMarksObtained"]</td>
+                    </tr>
+                    <tr>
+                        <td><b>Percentage:</b></td>
+                        <td>@ViewData["Percentage"]%</td>
+                    </tr>
+                    <tr>
+                        <td><b>Remarks:</b></td>
+                        <td>@ViewData["Remarks"]</td>
+                    </tr>
+                    </table> 
+
+               
+        </div>
+
+    </div>
+    <div class="row no-print">
+    <div class="col-md-10">
+        <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+
+
+        <button type="button" id="printPDF" class="btn btn-primary pull-right" style="margin-right: 5px;">
+            <i class="fa fa-download"></i> Generate PDF
+        </button>
+    </div>
+</div>
+</div>
+
+
+
+
+@section Scripts{
+<script>
+    $("#printPDF").click(function){
+       var element=document.getElementById('parentDiv');
+       html2pdf().from(element).set({
+       margin:[30,10,5,10],
+       pagebreak: {avoid: 'tr'},
+       jsPDF: {orientation: 'landscape',unit:'pt',format: 'letter', compressPDF: true}}).save()
+       });
+</script>
+}

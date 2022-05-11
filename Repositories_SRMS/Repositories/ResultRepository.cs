@@ -29,6 +29,18 @@ namespace SRMSRepositories.Repositories
            return _sc.Results.FirstOrDefault(x => x.StudentId == sid);  
         }
 
+        public Result ResultExists(int eid, int sid, int cid)
+        {
+         
+            Result result = _sc.Results.FirstOrDefault(x => x.StudentId == sid && x.ExamId==eid && x.ClassId==cid);
+            return result != null ? result : null;
+ 
+        
+        }
+
+
+
+
 
     }
 }

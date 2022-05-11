@@ -13,7 +13,7 @@
           
             <input asp-for="@Model.mvmlist[i].Subject.Id" type="hidden" />
             <input asp-for="@Model.mvmlist[i].Subject.SubjectName" type="hidden" />
-            <input asp-for="@Model.mvmlist[i].Mark" class="form-control" />
+            <input asp-for="@Model.mvmlist[i].Mark" class="form-control" max="20"/>
         </div>
     }
 

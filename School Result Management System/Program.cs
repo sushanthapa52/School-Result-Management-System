@@ -21,6 +21,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultSignInScheme= CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignOutScheme=CookieAuthenticationDefaults.AuthenticationScheme;
 
 }).AddCookie(option =>
 {

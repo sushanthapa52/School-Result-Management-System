@@ -34,9 +34,9 @@ namespace SRMSRepositories.Repositories
            return _sc.ExamClassRelations;
         }
 
-        public ExamClassRelation GetExamClassById(int id)
+        public ExamClassRelation GetExamByClass(int eid,int cid,int examYear)
         {
-            var examClass =_sc.ExamClassRelations.FirstOrDefault(x=>x.ExamId==id);
+            ExamClassRelation examClass =_sc.ExamClassRelations.FirstOrDefault(x=>x.ExamId==eid && x.ClassID==cid && x.ExamYear==examYear);
             return examClass;
         }
 

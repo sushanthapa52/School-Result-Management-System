@@ -24,5 +24,10 @@ namespace SRMSRepositories.Repositories
             
         }
 
+        public List<Mark> MarksList(int resultId)
+        {
+            return _sc.Marks.Where(x=>x.ResultId.Equals(resultId)).ToList();  
+        }
+
     }
 }

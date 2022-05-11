@@ -17,6 +17,14 @@ namespace SRMSViewModel
         [Required]
         public int ClassId { get; set; }
 
+        [Required]
+        public int ExamId { get; set; }
+
+        
+
+        [Required]
+        public int ExamYear { get; set; }
+
 
     }
 }
