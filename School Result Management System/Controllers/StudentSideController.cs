@@ -83,7 +83,7 @@ namespace School_Result_Management_System.Controllers
 
         public IActionResult ShowResults(ResultViewModel model)
         {
-            List<Mark> marks = _markrepo.MarksList(model.ResultId);
+            List<Mark> marks = _markrepo.GetMarksList(model.ResultId);
             int totalMarksObtained=0, count=0;
             
             int FullMark = model.ExamName.Contains("Unit Test") ? 20 : 100;

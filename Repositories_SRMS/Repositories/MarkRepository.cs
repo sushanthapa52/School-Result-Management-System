@@ -24,9 +24,15 @@ namespace SRMSRepositories.Repositories
             
         }
 
-        public List<Mark> MarksList(int resultId)
+        public List<Mark> GetMarksList(int resultId)
         {
             return _sc.Marks.Where(x=>x.ResultId.Equals(resultId)).ToList();  
+        }
+
+        public void DeleteMarks(List<Mark> marks)
+        {
+           _sc.Marks.RemoveRange(marks);
+            _sc.SaveChanges();
         }
 
     }

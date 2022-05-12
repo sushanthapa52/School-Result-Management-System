@@ -32,7 +32,7 @@ namespace School_Result_Management_System.Controllers
             if (result!=null)
             {
                 int resultId = result.Id;
-                List<Mark> marks = _markrepo.MarksList(resultId);
+                List<Mark> marks = _markrepo.GetMarksList(resultId);
                 MVMWrapper model = new MVMWrapper();
 
                 if (marks.Count==0)
@@ -59,6 +59,7 @@ namespace School_Result_Management_System.Controllers
 
                     });
                 }
+                model.ResultId=resultId;
                 return View(model);
 
             }
@@ -97,18 +98,22 @@ namespace School_Result_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                List<Mark> marks = new List<Mark>();
+                List<Mark> OldMarks =_markrepo.GetMarksList(model.ResultId) ;
+                List<Mark> NewMarks = new List<Mark>();
+                if (OldMarks.Any())
+                {
+                    _markrepo.DeleteMarks(OldMarks);
+                }
                 foreach (MarksViewModel mvm in model.mvmlist)
                 {
-                    marks.Add(new Mark()
+                    NewMarks.Add(new Mark()
                     {
                         ResultId = model.ResultId,
                         SubjectId = mvm.Subject.Id,
                         Marks = mvm.Mark
                     });
                 }
-                _markrepo.AddMarks(marks);
+                _markrepo.AddMarks(NewMarks);
             }
 
 
