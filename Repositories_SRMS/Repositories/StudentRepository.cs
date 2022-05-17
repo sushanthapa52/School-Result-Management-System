@@ -64,9 +64,9 @@ namespace SRMSRepositories.Repositories
             return false; 
 
         }
-        public bool RollIdAlreadyExists(int rollId)
+        public bool RollIdAlreadyExists(int rollId,int classId)
         {
-            Student std = _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rollId);
+            Student std = _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rollId && x.ClassId==classId);
             if (std != null)
                 return true;
 

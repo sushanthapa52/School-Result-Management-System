@@ -83,9 +83,9 @@ namespace School_Result_Management_System.Controllers
                     StudentGender = model.StudentGender,
                 };
 
-                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo))
+                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo,Std.ClassId))
                 {
-                    ModelState.AddModelError(string.Empty, "Roll number already exists.");
+                    ModelState.AddModelError(string.Empty, "Roll number already exists in the class.");
 
                     return View(model);
 

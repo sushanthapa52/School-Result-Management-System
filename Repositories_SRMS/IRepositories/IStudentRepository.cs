@@ -14,7 +14,7 @@ namespace SRMSRepositories.IRepositories
         void RemoveStudent(int id);
 
         bool EmailAlreadyExists(string emailaddress);
-        bool RollIdAlreadyExists(int rollId);
+        bool RollIdAlreadyExists(int rollId,int classId);
 
        
         Student CheckStudentClassRollNo(int rid, int cid);

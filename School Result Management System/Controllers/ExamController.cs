@@ -45,23 +45,27 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
+                try {
+                    ExamClassRelation exam = new ExamClassRelation()
+                    {
+                        ClassID = examViewModel.ClassID,
+                        ExamId = examViewModel.Examid,
+                        ExamYear = examViewModel.ExamYear,
 
-                ExamClassRelation exam = new ExamClassRelation()
-                {
-                    ClassID = examViewModel.ClassID,
-                    ExamId= examViewModel.Examid,
-                    ExamYear = examViewModel.ExamYear,
-                   
-                };
-                if (_examrepo.ExamExists(exam))
-                {
-                    ModelState.AddModelError("", "Exam already registered.");
-                    return View(examViewModel);
+                    };
+                    if (_examrepo.ExamExists(exam))
+                    {
+                        ModelState.AddModelError("", "Exam already registered.");
+                        return View(examViewModel);
+                    }
+                    await _examrepo.AddExamAsync(exam);
+                    ViewBag.Success = "Exam Successfully added";
                 }
-                await _examrepo.AddExamAsync(exam);
 
-                return RedirectToAction("index");
-
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "Failed to add exam";
+                } 
             }
             return View(examViewModel);
         }
