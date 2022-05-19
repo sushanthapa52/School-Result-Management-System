@@ -17,8 +17,15 @@
              <span asp-validation-for="SubjectIds" class="text-danger"></span>
         </div>
     </div>
-
-    <button type="submit" class="btn btn-lg mt-3 btn-success">Create</button>
+    @if (ViewBag.Success !=null)
+    {
+        <div class="text-success" style="margin-left: 26%;">@ViewBag.Success</div>
+    }
+    else
+    {
+         <div class="text-danger">@ViewBag.Error</div>
+    }
+    <button type="submit" class="btn mt-3 btn-success" style="margin-left: 26%;">Create</button>
 </form>
 
 @section scripts{

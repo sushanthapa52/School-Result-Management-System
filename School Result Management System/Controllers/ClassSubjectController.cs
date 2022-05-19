@@ -29,14 +29,23 @@ namespace School_Result_Management_System.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClassSubjectViewModel model,int id)
         {
-           
-
-            if (ModelState.IsValid)
+            try
             {
-             await  _classrepo.AddSubjectsToClassAsync(model.SubjectIds,id);
+                if (ModelState.IsValid)
+                {
+                    await _classrepo.AddSubjectsToClassAsync(model.SubjectIds, id);
 
+                }
+                model.ClassSubjects = _subrepo.GetAllSubjects().ToList();
+             
+                ViewBag.Success = "Subjects have been updated to the class sucessfully.";
+              
             }
-            model.ClassSubjects = _subrepo.GetAllSubjects().ToList();
+            catch(Exception ex)
+            {
+                ViewBag.Error = "Failed to update the subjects in the class";
+            }
+
             return View(model);
 
 

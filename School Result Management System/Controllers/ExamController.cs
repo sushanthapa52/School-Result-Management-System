@@ -8,19 +8,19 @@ using SRMSViewModel;
 namespace School_Result_Management_System.Controllers
 {
     [Authorize]
-    public class ExamController :Controller
+    public class ExamController : Controller
     {
         private readonly IClassRepository _classrepo;
         private readonly IExamRepository _examrepo;
 
-        public ExamController(IClassRepository classrepo,IExamRepository examrepo)
+        public ExamController(IClassRepository classrepo, IExamRepository examrepo)
         {
             _classrepo = classrepo;
             _examrepo = examrepo;
 
         }
-      
-        
+
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -45,7 +45,8 @@ namespace School_Result_Management_System.Controllers
 
             if (ModelState.IsValid)
             {
-                try {
+                try
+                {
                     ExamClassRelation exam = new ExamClassRelation()
                     {
                         ClassID = examViewModel.ClassID,
@@ -65,13 +66,17 @@ namespace School_Result_Management_System.Controllers
                 catch (Exception ex)
                 {
                     ViewBag.Error = "Failed to add exam";
-                } 
+                }
             }
             return View(examViewModel);
         }
-   
-     
-      
+
+        public IActionResult Index()
+        {
+            var registeredExams=_examrepo.GetAllExamDetails();
+            return View();
+        }
+
 
     }
 }

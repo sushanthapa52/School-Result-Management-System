@@ -50,15 +50,7 @@
                                     @*<a class="delete" asp-action="Delete" asp-route-id="@subject.Id"><i class="material-icons">&#xE872;</i></a>*@
                                             
                                     <a class="delete actions" asp-action="Delete" asp-route-id="@subject.Id" onclick="return confirm('Are you sure you want to delete this item?')"> <i class="material-icons">&#xE872;</i>Delete</a>
-        
-
-
-                                            @*<span id="confirmDeleteSpan_@subject.Id" style="display:none">
-                                                    <span>Are you sure you want to delete?</span>
-                                                    <button type="submit" class="btn btn-danger">Yes</button>
-                                                    <a href="#" class="btn btn-primary"
-                                                        onclick="confirmDelete('@subject.Id', false)">No</a>
-                                                </span>*@
+       
                                 </td>
                             </tr>
                         }

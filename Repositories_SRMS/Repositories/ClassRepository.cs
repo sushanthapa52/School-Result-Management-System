@@ -73,7 +73,7 @@ namespace SRMSRepositories.Repositories
 
             List<ClassSubjectRelation> previousdata = _sc.ClassSubjectRelations.Where(x => x.ClassId == classid).ToList();
             _sc.ClassSubjectRelations.RemoveRange(previousdata);
-            if (subject_ids.Count()>0) {
+            if (subject_ids != null) {
                
                 foreach (int sid in subject_ids)
                 {
@@ -88,7 +88,7 @@ namespace SRMSRepositories.Repositories
                 await _sc.SaveChangesAsync();
                
             }
-          
+            await _sc.SaveChangesAsync();
 
 
            

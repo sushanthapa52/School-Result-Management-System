@@ -16,6 +16,8 @@ namespace SRMSRepositories.IRepositories
 
         ExamClassRelation GetExamByClass(int eid, int cid, int examYear);
 
+        ExamClassRelation GetExamByClass(int eid);
+
         Exam GetExamById(int id);
         bool ExamExists(ExamClassRelation model);
 

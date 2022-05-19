@@ -44,7 +44,7 @@
                         <td>
                            
                             <a class="edit actions" asp-action="Edit" asp-route-id="@cl.Id"><i class="material-icons">&#xE254;</i>Edit</a>
-                            <a class="delete actions" asp-action="Delete" asp-route-id="@cl.Id"><i class="material-icons">&#xE872;</i>Delete</a>
+                            <a class="delete actions" asp-action="Delete" onclick="return confirm('Are you sure you want to delete this item?')" asp-route-id="@cl.Id"><i class="material-icons">&#xE872;</i>Delete</a>
                             <a  class="actions" asp-controller="ClassSubject" asp-action="Create" asp-route-id="@cl.Id">Manage Subjects</a>
                         </td>
                     </tr>

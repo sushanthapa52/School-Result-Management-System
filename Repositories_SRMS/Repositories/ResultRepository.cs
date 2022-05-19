@@ -24,9 +24,9 @@ namespace SRMSRepositories.Repositories
             return model;
         }
 
-        public Result GetResult(int sid)
+        public IEnumerable<Result> GetAllResults()
         {
-           return _sc.Results.FirstOrDefault(x => x.StudentId == sid);  
+            return _sc.Results;
         }
 
         public Result ResultExists(int eid, int sid, int cid)

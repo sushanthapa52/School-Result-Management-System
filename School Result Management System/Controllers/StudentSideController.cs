@@ -110,7 +110,7 @@ namespace School_Result_Management_System.Controllers
            
             ViewData["TotalMarksObtained"] = totalMarksObtained;
             ViewData["TotalMarks"] = FullMark * count;
-            float percentage= (float)totalMarksObtained /(FullMark * count)* 100;
+            double percentage= System.Math.Round((float)totalMarksObtained / (FullMark * count) * 100, 2); 
             ViewData["Percentage"] = percentage;
             ViewData["Remarks"] = result;
             return View(model);

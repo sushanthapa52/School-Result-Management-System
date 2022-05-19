@@ -13,14 +13,15 @@ namespace School_Result_Management_System.Controllers
         private readonly ISubjectRepository _subrepo;
         private readonly IMarkRepository _markrepo;
         private readonly IResultRepository _resultrepo;
+        private readonly IExamRepository _examrepo;
 
-        public MarkController(IClassRepository classrepo, ISubjectRepository subrepo, IResultRepository resultrepo, IMarkRepository markrepo)
+        public MarkController(IClassRepository classrepo,IExamRepository examrepo, ISubjectRepository subrepo, IResultRepository resultrepo, IMarkRepository markrepo)
         {
             _classrepo = classrepo;
             _subrepo = subrepo;
             _markrepo = markrepo;
             _resultrepo = resultrepo;
-
+            _examrepo = examrepo;
         }
 
 
@@ -28,7 +29,8 @@ namespace School_Result_Management_System.Controllers
         {
             Result result = _resultrepo.ResultExists(examid, id, classid);
             List<int> subjectIds = _classrepo.GetSubjectsByClassId(classid);
-
+            var exam = _examrepo.GetExamByClass(examid);
+            ViewData["MaxMarks"] = _examrepo.GetExamById(exam.ExamId).Name.Contains("Unit Test") ? 20:100;
             if (result!=null)
             {
                 int resultId = result.Id;
@@ -96,24 +98,33 @@ namespace School_Result_Management_System.Controllers
         [HttpPost]
         public IActionResult AssignMarks(MVMWrapper model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                List<Mark> OldMarks =_markrepo.GetMarksList(model.ResultId) ;
-                List<Mark> NewMarks = new List<Mark>();
-                if (OldMarks.Any())
+                if (ModelState.IsValid)
                 {
-                    _markrepo.DeleteMarks(OldMarks);
-                }
-                foreach (MarksViewModel mvm in model.mvmlist)
-                {
-                    NewMarks.Add(new Mark()
+                    List<Mark> OldMarks = _markrepo.GetMarksList(model.ResultId);
+                    List<Mark> NewMarks = new List<Mark>();
+                    if (OldMarks.Any())
                     {
-                        ResultId = model.ResultId,
-                        SubjectId = mvm.Subject.Id,
-                        Marks = mvm.Mark
-                    });
+                        _markrepo.DeleteMarks(OldMarks);
+                    }
+                    foreach (MarksViewModel mvm in model.mvmlist)
+                    {
+                        NewMarks.Add(new Mark()
+                        {
+                            ResultId = model.ResultId,
+                            SubjectId = mvm.Subject.Id,
+                            Marks = mvm.Mark
+                        });
+                    }
+                    _markrepo.AddMarks(NewMarks);
+                   
+                    ViewBag.Success = "Marks has been added successfully";
                 }
-                _markrepo.AddMarks(NewMarks);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Error = "Marks Couldn't be updated";
             }
 
 

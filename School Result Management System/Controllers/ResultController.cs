@@ -84,8 +84,7 @@ namespace School_Result_Management_System.Controllers
                ExamId= Convert.ToInt32(TempData["ExamId"])
 
             };
-           
-           
+          
             return View(rw);
         }
 
