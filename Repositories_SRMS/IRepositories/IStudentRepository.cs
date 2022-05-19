@@ -1,4 +1,5 @@
 ﻿using SRMSDataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,6 +18,6 @@ namespace SRMSRepositories.IRepositories
         bool RollIdAlreadyExists(int rollId,int classId);
 
        
-        Student CheckStudentClassRollNo(int rid, int cid);
+        Student CheckStudentClassRollNo(int rid, int cid, DateTime dob);
     }
 }

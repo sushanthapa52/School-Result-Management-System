@@ -46,7 +46,7 @@ namespace School_Result_Management_System.Controllers
             ViewBag.Exams = new SelectList(_examrepo.GetAllExams(), "Id", "Name");
             if (ModelState.IsValid)
             {
-                Student student = _studentrepo.CheckStudentClassRollNo(model.StudentRollId, model.ClassId);
+                Student student = _studentrepo.CheckStudentClassRollNo(model.StudentRollId, model.ClassId, model.StudentDob);
                 if (student != null)
                 {
 

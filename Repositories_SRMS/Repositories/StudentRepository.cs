@@ -74,10 +74,10 @@ namespace SRMSRepositories.Repositories
 
         }
 
-        public Student CheckStudentClassRollNo(int rid,int cid)
+        public Student CheckStudentClassRollNo(int rid,int cid, DateTime dob)
         {
 
-            return _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rid && x.ClassId==cid);
+            return _sc.Students.FirstOrDefault(x=>x.StudentRollNo==rid && x.ClassId==cid && x.StudentDob==dob);
         }
 
      

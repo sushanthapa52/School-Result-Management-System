@@ -46,6 +46,12 @@
                                     <span asp-validation-for="ExamYear" class="text-danger"></span>
 
                                 </div>
+                                <div>
+                                    <label asp-for="StudentDob">Date of Birth</label><br />
+                                <input type="date" id="birthdate"  asp-for="StudentDob">
+                                <span asp-validation-for="StudentDob" class="text-danger"></span>
+
+                                </div>
                                 <div asp-validation-summary="All" class="text-danger"></div>
 
                             </div>
