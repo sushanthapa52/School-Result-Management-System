@@ -24,6 +24,16 @@
 
 @if (Model.Any())
 {
+    <form asp-action="Index" method="post">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+  
+
 
 
     <div class="card-body p-0">
@@ -59,7 +69,9 @@
             </tbody>
         </table>
     </div>
+      </form>
 }
+
 else
 {
 

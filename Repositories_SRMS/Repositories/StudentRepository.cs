@@ -20,6 +20,12 @@ namespace SRMSRepositories.Repositories
         public IEnumerable<Student> GetAllStudents()
         {
             return _sc.Students;
+
+        }
+
+        public IEnumerable<Student> FilterStudentByName(string searchString)
+        {
+            return _sc.Students.Where(x => x.StudentName.ToLower().Contains(searchString.ToLower()));
         }
         public async Task<Student> AddStudentsAsync(Student std)
         {

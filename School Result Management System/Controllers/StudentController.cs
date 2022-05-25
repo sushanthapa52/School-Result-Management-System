@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using SRMSViewModel;
-using System.Collections.Generic;
+using PagedList;
 
 
 namespace School_Result_Management_System.Controllers
@@ -21,14 +21,34 @@ namespace School_Result_Management_System.Controllers
             _classrepo = classrepo;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            IEnumerable<Student> students = _studentrepo.GetAllStudents();
+
+            IEnumerable<Student> students = _studentrepo.GetAllStudents().OrderBy(x => x.StudentName);
+
+            ViewData["CurrentFilter"] = searchString;
 
             List<StudentViewModel> stdList = new List<StudentViewModel>();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var sstudents = _studentrepo.FilterStudentByName(searchString);
 
+                foreach (Student student in sstudents)
+                {
 
+                    stdList.Add(new StudentViewModel
+                    {
+                        StudentId = student.Id,
+                        StudentName = student.StudentName,
+                        StudentRollNo = student.StudentRollNo,
+                        classname = _classrepo.GetClassById(student.ClassId).ClassName
 
+                    });
+
+                }
+                return View(stdList);
+
+            }
             foreach (Student student in students)
             {
                 stdList.Add(new StudentViewModel
@@ -38,12 +58,14 @@ namespace School_Result_Management_System.Controllers
                     StudentRollNo = student.StudentRollNo,
                     classname = _classrepo.GetClassById(student.ClassId).ClassName
 
-                });
-
+                     });
             }
 
-            return View(stdList);
+                return View(stdList);
         }
+
+       
+      
         [HttpGet]
         public IActionResult Create()
         {

@@ -16,8 +16,11 @@ namespace SRMSRepositories.IRepositories
 
         bool EmailAlreadyExists(string emailaddress);
         bool RollIdAlreadyExists(int rollId,int classId);
+        IEnumerable<Student> FilterStudentByName(string searchString);
 
-       
+
+
+
         Student CheckStudentClassRollNo(int rid, int cid, DateTime dob);
     }
 }
