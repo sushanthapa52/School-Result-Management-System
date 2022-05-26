@@ -1,4 +1,5 @@
 ﻿
+using SRMSDataAccess.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,10 @@ namespace SRMSViewModel
 
         [Required(ErrorMessage = "Student Name is required")]
         public string StudentName { get; set; } = null!;
-        
+
         [Required(ErrorMessage = "Student Roll Number is required")]
 
-        public int StudentRollNo { get; set; } 
+        public int StudentRollNo { get; set; }
 
 
         [Required(ErrorMessage = "Student Email ID is required")]
@@ -34,11 +35,13 @@ namespace SRMSViewModel
         [DataType(DataType.Date)]
         public DateTime? StudentDob { get; set; }
 
-      
+
         public int ClassId { get; set; }
 
         public string? classname { get; set; }
 
-        public int StudentId { get; set; }  
+        public int StudentId { get; set; }
+
+       
     }
 }

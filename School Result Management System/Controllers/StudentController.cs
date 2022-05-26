@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using SRMSViewModel;
-using PagedList;
 
 
 namespace School_Result_Management_System.Controllers
@@ -21,51 +20,95 @@ namespace School_Result_Management_System.Controllers
             _classrepo = classrepo;
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index()
         {
+            return View(this.GetStudents(1));
+        }
+        [HttpPost]
+        public IActionResult Index(int currentPageIndex)
+        {
+            return View(this.GetStudents(currentPageIndex));
+        }
 
-            IEnumerable<Student> students = _studentrepo.GetAllStudents().OrderBy(x => x.StudentName);
+        private SVMwrapper GetStudents(int currentPage)
+        {
+            int maxRows = 2;
 
-            ViewData["CurrentFilter"] = searchString;
+            List<Student> StudentList = _studentrepo.GetAllStudents()
+                         .OrderBy(Student => Student.StudentName)
+                         .Skip((currentPage - 1) * maxRows)
+                         .Take(maxRows).ToList();
 
-            List<StudentViewModel> stdList = new List<StudentViewModel>();
-            if (!String.IsNullOrEmpty(searchString))
+
+            SVMwrapper model = new SVMwrapper();
+            foreach (Student student in StudentList)
             {
-                var sstudents = _studentrepo.FilterStudentByName(searchString);
 
-                foreach (Student student in sstudents)
-                {
-
-                    stdList.Add(new StudentViewModel
-                    {
-                        StudentId = student.Id,
-                        StudentName = student.StudentName,
-                        StudentRollNo = student.StudentRollNo,
-                        classname = _classrepo.GetClassById(student.ClassId).ClassName
-
-                    });
-
-                }
-                return View(stdList);
-
-            }
-            foreach (Student student in students)
-            {
-                stdList.Add(new StudentViewModel
+                model.Students.Add(new StudentViewModel
                 {
                     StudentId = student.Id,
                     StudentName = student.StudentName,
                     StudentRollNo = student.StudentRollNo,
                     classname = _classrepo.GetClassById(student.ClassId).ClassName
 
-                     });
+                });
+
             }
 
-                return View(stdList);
+            double pageCount = (double)((decimal)_studentrepo.GetAllStudents().Count() / Convert.ToDecimal(maxRows));
+            model.PageCount = (int)Math.Ceiling(pageCount);
+
+            model.CurrentPageIndex = currentPage;
+
+            return model;
         }
 
-       
-      
+
+        //public IActionResult Index(string searchString)
+        //{
+
+        //    IEnumerable<Student> students = _studentrepo.GetAllStudents().OrderBy(x => x.StudentName);
+
+        //    ViewData["CurrentFilter"] = searchString;
+
+        //    List<StudentViewModel> stdList = new List<StudentViewModel>();
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        var sstudents = _studentrepo.FilterStudentByName(searchString);
+
+        //        foreach (Student student in sstudents)
+        //        {
+
+        //            stdList.Add(new StudentViewModel
+        //            {
+        //                StudentId = student.Id,
+        //                StudentName = student.StudentName,
+        //                StudentRollNo = student.StudentRollNo,
+        //                classname = _classrepo.GetClassById(student.ClassId).ClassName
+
+        //            });
+
+        //        }
+        //        return View(stdList);
+
+        //    }
+        //    foreach (Student student in students)
+        //    {
+        //        stdList.Add(new StudentViewModel
+        //        {
+        //            StudentId = student.Id,
+        //            StudentName = student.StudentName,
+        //            StudentRollNo = student.StudentRollNo,
+        //            classname = _classrepo.GetClassById(student.ClassId).ClassName
+
+        //             });
+        //    }
+
+        //        return View(stdList);
+        //}
+
+
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -85,7 +128,7 @@ namespace School_Result_Management_System.Controllers
         public async Task<IActionResult> Create(StudentViewModel model)
         {
 
-           var classes = _classrepo.GetAllClasses();
+            var classes = _classrepo.GetAllClasses();
             ViewBag.Classes = new SelectList(classes, "Id", "ClassName");
 
             ViewBag.Gender = new[] { "Male", "Female", "Others" };
@@ -105,7 +148,7 @@ namespace School_Result_Management_System.Controllers
                     StudentGender = model.StudentGender,
                 };
 
-                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo,Std.ClassId))
+                if (_studentrepo.RollIdAlreadyExists(Std.StudentRollNo, Std.ClassId))
                 {
                     ModelState.AddModelError(string.Empty, "Roll number already exists in the class.");
 
@@ -170,19 +213,19 @@ namespace School_Result_Management_System.Controllers
             {
 
                 Student student = new Student
-                { 
-                   
-                    Id=model.StudentId,
-                    ClassId=model.ClassId,
+                {
+
+                    Id = model.StudentId,
+                    ClassId = model.ClassId,
                     StudentGender = model.StudentGender,
-                    StudentEmailId= model.StudentEmailId,
-                    StudentDob=model.StudentDob.Value,
-                    StudentName=model.StudentName,
-                    StudentRollNo=model.StudentRollNo
-                    
+                    StudentEmailId = model.StudentEmailId,
+                    StudentDob = model.StudentDob.Value,
+                    StudentName = model.StudentName,
+                    StudentRollNo = model.StudentRollNo
+
                 };
-               await _studentrepo.UpdateStudentAsync(student);
-                
+                await _studentrepo.UpdateStudentAsync(student);
+
                 Redirect("/Student/Index");
 
             }
@@ -192,7 +235,8 @@ namespace School_Result_Management_System.Controllers
         public IActionResult Delete(int id)
         {
             _studentrepo.RemoveStudent(id);
-             return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
     }
 }
+
