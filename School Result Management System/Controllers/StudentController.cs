@@ -22,17 +22,49 @@ namespace School_Result_Management_System.Controllers
 
         public IActionResult Index()
         {
-            return View(this.GetStudents(1));
+            return View(this.GetStudents(1,""));
         }
         [HttpPost]
-        public IActionResult Index(int currentPageIndex)
+        public IActionResult Index(int currentPageIndex, string searchString)
         {
-            return View(this.GetStudents(currentPageIndex));
+            return View(this.GetStudents(currentPageIndex,searchString));
         }
 
-        private SVMwrapper GetStudents(int currentPage)
+        private SVMwrapper GetStudents(int currentPage, string searchString)
         {
-            int maxRows = 2;
+            int maxRows = 4;
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                List<Student> StudentLists = _studentrepo.FilterStudentByName(searchString)
+                     .OrderBy(Student => Student.StudentName)
+                     .Skip((currentPage - 1) * maxRows)
+                     .Take(maxRows).ToList();
+
+
+                SVMwrapper modell = new SVMwrapper();
+                foreach (Student student in StudentLists)
+                {
+
+                    modell.Students.Add(new StudentViewModel
+                    {
+                        StudentId = student.Id,
+                        StudentName = student.StudentName,
+                        StudentRollNo = student.StudentRollNo,
+                        classname = _classrepo.GetClassById(student.ClassId).ClassName
+
+                    });
+
+                }
+
+                double pageCounts = (double)((decimal)_studentrepo.FilterStudentByName(searchString).Count() / Convert.ToDecimal(maxRows));
+                modell.PageCount = (int)Math.Ceiling(pageCounts);
+
+                modell.CurrentPageIndex = currentPage;
+
+                return modell;
+            }
 
             List<Student> StudentList = _studentrepo.GetAllStudents()
                          .OrderBy(Student => Student.StudentName)
@@ -62,51 +94,6 @@ namespace School_Result_Management_System.Controllers
 
             return model;
         }
-
-
-        //public IActionResult Index(string searchString)
-        //{
-
-        //    IEnumerable<Student> students = _studentrepo.GetAllStudents().OrderBy(x => x.StudentName);
-
-        //    ViewData["CurrentFilter"] = searchString;
-
-        //    List<StudentViewModel> stdList = new List<StudentViewModel>();
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        var sstudents = _studentrepo.FilterStudentByName(searchString);
-
-        //        foreach (Student student in sstudents)
-        //        {
-
-        //            stdList.Add(new StudentViewModel
-        //            {
-        //                StudentId = student.Id,
-        //                StudentName = student.StudentName,
-        //                StudentRollNo = student.StudentRollNo,
-        //                classname = _classrepo.GetClassById(student.ClassId).ClassName
-
-        //            });
-
-        //        }
-        //        return View(stdList);
-
-        //    }
-        //    foreach (Student student in students)
-        //    {
-        //        stdList.Add(new StudentViewModel
-        //        {
-        //            StudentId = student.Id,
-        //            StudentName = student.StudentName,
-        //            StudentRollNo = student.StudentRollNo,
-        //            classname = _classrepo.GetClassById(student.ClassId).ClassName
-
-        //             });
-        //    }
-
-        //        return View(stdList);
-        //}
-
 
 
         [HttpGet]

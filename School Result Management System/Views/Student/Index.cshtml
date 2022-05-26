@@ -8,7 +8,8 @@
 <style>
     .actions {
         display:flex;
-        column-gap:13px;
+        column-gap:25px;
+
     }
 
     .delete {
@@ -18,27 +19,39 @@
     .edit {
         color: yellowgreen;
     }
+    .header{
+        display:flex;
+        justify-content: space-evenly;
+    }
+
+    
 </style>
 
 
 
 @if (Model.Students.Any())
 {
-    @*<form asp-action="Index" method="post">
-    <div class="form-actions no-color">
-        <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
-        </p>
-    </div>
-  
-    </form>*@
-
+   
 <form asp-action="Index" method="post">
-    <div class="card-body p-0">
-        <a type="button" class="btn btn-info add-new mb-5" asp-action="Create"><i class="fa fa-plus"></i> Add New Student</a>
-        <table class="table">
+
+        <div class="card-body p-0">
+        @using (Html.BeginForm())
+{
+    <div class="header" >
+    <div>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" />
+
+          <a   asp-action="Index" > Back To List</a>
+          </div>
+         <div style="align-self:flex-end;">
+          <a  class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Student</a>
+
+          </div>
+          </div>
+}
+
+        <table class="table mt-5">
             <thead>
                 <tr>
                     <th width="20%">Student Name</th>
@@ -68,7 +81,7 @@
 
             </tbody>
         </table>
-         <table cellpadding="0" cellspacing="0">
+         <table cellpadding="5" cellspacing="5">
             <tr>
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
@@ -88,6 +101,7 @@
         <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex"/>
 
     </div>
+
      </form> 
 }
 
