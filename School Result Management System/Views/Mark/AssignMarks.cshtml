@@ -1,0 +1,30 @@
+﻿@model MVMWrapper
+@{
+    ViewBag.Title = "Assign Marks";
+}
+
+<form method="post">
+
+    <input asp-for="@Model.ResultId" type="hidden"/>
+    @for (int i = 0; i < Model.mvmlist.Count; i++)
+    {
+        <div class="form-group">
+            <label>@Model.mvmlist[i].Subject.SubjectName</label>
+          
+            <input asp-for="@Model.mvmlist[i].Subject.Id" type="hidden" />
+            <input asp-for="@Model.mvmlist[i].Subject.SubjectName" type="hidden" />
+            <input asp-for="@Model.mvmlist[i].Mark" class="form-control" max="@ViewData["MaxMarks"]"/>
+        </div>
+    }
+
+    <button type="Submit" class="btn btn-success">Assign</button>
+    @if (ViewBag.Success!=null)
+    {
+        <span class="text-success">@ViewBag.Success</span>
+    }
+    else
+    {
+       <span class="text-danger">@ViewBag.Error</span> 
+    }
+
+</form>

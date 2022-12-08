@@ -7,9 +7,7 @@ namespace SRMSDataAccess.Models
 {
     public partial class SrmsContext : DbContext
     {
-        public SrmsContext()
-        {
-        }
+      
 
         public SrmsContext(DbContextOptions<SrmsContext> options)
             : base(options)
@@ -22,7 +20,11 @@ namespace SRMSDataAccess.Models
         public virtual DbSet<Result> Results { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
         public virtual DbSet<Subject> Subjects { get; set; } = null!;
+        public virtual DbSet<ExamClassRelation> ExamClassRelations { get; set; } = null!;
+
         public virtual DbSet<User> Users { get; set; } = null!;
+
+        public virtual DbSet<ClassSubjectRelation> ClassSubjectRelations { get; set; } = null!; 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,19 +39,12 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("created_on");
-
-                entity.Property(e => e.Name)
+                entity.Property(e => e.ClassName)
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("name");
 
-                entity.Property(e => e.Status)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("status");
+                
             });
 
             modelBuilder.Entity<Exam>(entity =>
@@ -58,30 +53,16 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.AddedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("added_on");
-
-                entity.Property(e => e.ClassId).HasColumnName("class_id");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("name");
 
-                entity.Property(e => e.ResultDate)
-                    .HasColumnType("date")
-                    .HasColumnName("result_date");
 
-                entity.Property(e => e.ResultPublished)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("result_published");
 
-                entity.Property(e => e.Status)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("status");
+          
+
             });
 
             modelBuilder.Entity<Mark>(entity =>
@@ -96,17 +77,13 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.SubjectId).HasColumnName("subject_id");
 
-                entity.HasOne(d => d.Result)
-                    .WithMany(p => p.Marks)
-                    .HasForeignKey(d => d.ResultId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__marks__result_id__72C60C4A");
+                //entity.HasOne(d => d.Result)
+                //    .WithMany(p => p.Marks)
+                //    .HasForeignKey(d => d.ResultId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__marks__result_id__72C60C4A");
 
-                entity.HasOne(d => d.Subject)
-                    .WithMany(p => p.Marks)
-                    .HasForeignKey(d => d.SubjectId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__marks__subject_i__73BA3083");
+              
             });
 
             modelBuilder.Entity<Result>(entity =>
@@ -119,33 +96,25 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.ExamId).HasColumnName("exam_id");
 
-                entity.Property(e => e.ResultAddedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("result_added_by");
+                
 
-                entity.Property(e => e.ResultPercentage)
-                    .HasColumnType("decimal(5, 2)")
-                    .HasColumnName("result_percentage");
+               
 
-                entity.Property(e => e.ResultStatus)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("result_status");
+               
 
                 entity.Property(e => e.StudentId).HasColumnName("student_id");
 
-                entity.HasOne(d => d.Class)
-                    .WithMany(p => p.Results)
-                    .HasForeignKey(d => d.ClassId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__result__class_id__74AE54BC");
+                //entity.HasOne(d => d.Class)
+                //    .WithMany(p => p.Results)
+                //    .HasForeignKey(d => d.ClassId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__result__class_id__74AE54BC");
 
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.Results)
-                    .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__result__student___778AC167");
+                //entity.HasOne(d => d.Student)
+                //    .WithMany(p => p.Results)
+                //    .HasForeignKey(d => d.StudentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK__result__student___778AC167");
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -156,15 +125,7 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.ClassId).HasColumnName("class_id");
 
-                entity.Property(e => e.StudentAddedBy)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("student_added_by");
-
-                entity.Property(e => e.StudentAddedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("student_added_on");
-
+               
                 entity.Property(e => e.StudentDob)
                     .HasColumnType("date")
                     .HasColumnName("student_dob");
@@ -184,15 +145,8 @@ namespace SRMSDataAccess.Models
                     .IsUnicode(false)
                     .HasColumnName("student_name");
 
-                entity.Property(e => e.StudentRollNo)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("student_roll_no");
+                entity.Property(e => e.StudentRollNo).HasColumnName("student_roll_no");
 
-                entity.Property(e => e.StudentStatus)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("student_status");
 
                 entity.HasOne(d => d.Class)
                     .WithMany(p => p.Students)
@@ -207,27 +161,12 @@ namespace SRMSDataAccess.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.ClassId).HasColumnName("class_id");
-
-                entity.Property(e => e.SubjectCreatedOn)
-                    .HasColumnType("datetime")
-                    .HasColumnName("subject_created_on");
-
                 entity.Property(e => e.SubjectName)
                     .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("subject_name");
 
-                entity.Property(e => e.SubjectStatus)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("subject_status");
-
-                entity.HasOne(d => d.Class)
-                    .WithMany(p => p.Subjects)
-                    .HasForeignKey(d => d.ClassId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__subject__class_i__797309D9");
+                
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -274,6 +213,37 @@ namespace SRMSDataAccess.Models
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("user_type");
+            });
+
+            modelBuilder.Entity<ClassSubjectRelation>(entity =>
+            {
+                entity.ToTable("ClassSubjectRelation");
+               
+                entity.Property(e => e.CS_Id).HasColumnName("id");
+                entity.HasKey(e => e.CS_Id);
+
+
+                entity.Property(e => e.ClassId).HasColumnName("class_id");
+
+                entity.Property(e => e.SubjectId).HasColumnName("subject_id");
+            });
+
+            modelBuilder.Entity<ExamClassRelation>(entity =>
+            {
+                entity.ToTable("ExamClassRelation");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ResultPublished)
+              .HasColumnName("result_published");
+
+                entity.Property(e => e.ExamId).HasColumnName("exam_id");
+
+                entity.Property(e => e.ClassID).HasColumnName("class_id");
+
+                entity.Property(e => e.ExamYear).HasColumnName("exam_year");
+
             });
 
             OnModelCreatingPartial(modelBuilder);

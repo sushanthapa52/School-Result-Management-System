@@ -1,0 +1,74 @@
+﻿
+@model StudentViewModel
+@{
+    ViewBag.Title = "Create Student";
+}
+
+
+<form role="form" method="post">
+
+<div class="card-body">
+<label>Fill the student info</label>
+<br />
+ <div asp-validation-summary="All" class="text-danger"> </div>
+
+
+<div class="form-group">
+<label>Enter Full Name</label>
+<input type="text" class="form-control" asp-for="StudentName" placeholder="Enter student full name">
+<span asp-validation-for="StudentName" class="text-danger"></span>
+
+</div>
+
+
+<div class="form-group">
+<label asp-for="StudentRollNo">Enter Roll Number</label>
+<input type="text" class="form-control" asp-for="StudentRollNo" placeholder="Enter student roll number">
+<span asp-validation-for="StudentRollNo" class="text-danger"></span>
+ <div asp-validation="RollError" class="text-danger"> </div>
+
+
+</div>
+
+<div>
+    <label asp-for="StudentGender"> Gender</label><br />
+            @foreach(var gender in ViewBag.Gender)
+            {
+                <input type="radio" asp-for="StudentGender" value="@gender"  />@gender
+            }
+
+</div>
+
+
+
+<div class="form-group">
+<label asp-for="ClassId">Class</label><br />
+ <select asp-for="ClassId" class="form-control justify-content-center" asp-items="ViewBag.Classes"></select>
+</div>
+
+
+<div class="form-group">
+<label asp-for="StudentEmailId">Email address</label>
+<input type="email" class="form-control" id="exampleInputEmail1" asp-for="StudentEmailId" placeholder="Enter email">
+<span asp-validation-for="StudentEmailId" class="text-danger"></span>
+
+</div>
+
+<div>
+    <label asp-for="StudentDob">Date of Birth</label><br />
+<input type="date" id="birthdate"  asp-for="StudentDob">
+<span asp-validation-for="StudentDob" class="text-danger"></span>
+
+</div>
+
+
+
+
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+                               
+
+</form>
+
+
+

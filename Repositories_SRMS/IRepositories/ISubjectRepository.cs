@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.IRepositories
 {
-    public interface ISubjectRepository:IRepository<Subject,int>
+    public interface ISubjectRepository
     {
+        Task<Subject> AddSubjectAsync(Subject sub);
+        int GetSubjectId();
+        Task RemoveSubject(int id);
+        IEnumerable<Subject> GetAllSubjects();
+        Subject GetSubjectById(int id);
+        Subject UpdateSubject(Subject subjectupdates);
+        bool SubjectExists(string subjectName);
     }
 
     

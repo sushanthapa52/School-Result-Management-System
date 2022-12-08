@@ -1,0 +1,189 @@
+﻿@model ResultViewModel
+@{
+    Layout = null;
+
+}
+
+
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<style>
+    .Resultheader {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        font-size: 1.5rem;
+        margin-top: 5%
+    }
+
+    .headerchild {
+        display: flex;
+    }
+
+        .headerchild b {
+            width: 180px;
+        }
+
+        .headerchild p {
+            width: 180px;
+        }
+
+    
+</style>
+
+<div class="container">
+
+
+
+    <div class="col-md-10  table-responsive">
+
+
+        <div class="Resultheader" id="content">
+            <h2 class="text-center" id="examname">@Model.ExamName--@Model.ExamYear</h2>
+            <div class="headerchild">
+                <b>Student Name :</b>
+                @Model.StudentName
+            </div>
+            <div class="headerchild">
+                <b>Class:</b>
+                @Model.ClassName
+            </div>
+            <div class="headerchild">
+                <b>Roll Number:</b>
+                @Model.RollNo
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <table class="table table-striped" style="margin-top:10%" id="mytable">
+            <thead>
+                <tr>
+                    <th width="10%">S.N</th>
+                    <th width="25%">Subjects</th>
+                    <th width="15%">Full Mark</th>
+                    <th width="15%">Pass Mark</th>
+
+                    <th>Marks Obtained</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @for (int i = 0; i < Model.mvmList.Count; i++)
+                {
+
+                    <tr>
+                        <td>@(i+1)</td>
+                        <td>@Model.mvmList[i].Subject.SubjectName</td>
+                        <td>@ViewData["FullMark"]</td>
+                        <td>@ViewData["PassMark"]</td>
+                        <td>@Model.mvmList[i].Mark</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="ResultHeader" id="ResultFooter">
+            <div class="headerchild">
+                <b>Total Marks:</b>
+                <p>  @ViewData["TotalMarks"]</p>
+            </div>
+
+
+            <div class="headerchild">
+                <b>Total Marks Obtained:</b>
+                <p>@ViewData["TotalMarksObtained"]</p>
+            </div>
+
+            <div class="headerchild">
+                <b>Percentage:</b>
+                <p>@ViewData["Percentage"]%</p>
+            </div>
+
+            <div class="headerchild">
+                <b>Remarks:</b>
+                <p> @ViewData["Remarks"]</p>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div id="editor"></div>
+    <div class="row">
+        <button type="button" onclick="generate()" class="btn btn-primary" >
+            <i class="fa fa-download"></i> Generate PDF
+        </button>
+    </div>
+</div>
+
+
+
+
+
+<script src="~/plugins/jquery/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+<script type="text/javascript">
+
+    function generate() {
+        var doc = new jsPDF('p', 'pt', 'a4','5');
+        doc.lineHeightProportion = 2;
+        var htmlstring = '';
+        var tempVarToCheckPageHeight = 0;
+        var pageHeight = 0;
+        pageHeight = doc.internal.pageSize.height;
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector
+            '#bypassme': function(element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"
+                return true
+            }
+        };
+       
+        var y = 20;
+        doc.setLineWidth(2);
+         doc.fromHTML($('#content').html(),50,15);
+        doc.autoTable({
+            html: '#mytable',
+            startY: 120,
+            theme: 'grid',
+            columnStyles: {
+                0: {
+                    cellWidth: 50,
+                },
+                1: {
+                    cellWidth: 100,
+                },
+                2: {
+                    cellWidth: 100,
+                },
+                 3: {
+                    cellWidth: 100,
+                } ,
+                 4: {
+                    cellWidth: 100,
+                }
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+        doc.fromHTML($('#ResultFooter').html(),50,400);
+       
+        doc.save('Marksheet.pdf');
+    }
+</script>
+

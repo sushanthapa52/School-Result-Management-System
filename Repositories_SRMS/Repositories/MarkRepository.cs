@@ -8,10 +8,32 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.Repositories
 {
-    public class MarkRepository : Repository<Mark, int>, IMarkRepository
+    public class MarkRepository :  IMarkRepository
     {
-        public MarkRepository(SrmsContext sc) : base(sc)
+        private readonly SrmsContext _sc;
+        public MarkRepository(SrmsContext sc) 
         {
+
+            _sc = sc;
         }
+
+        public void AddMarks(List<Mark> marks)
+        {
+            _sc.Marks.AddRange(marks);
+            _sc.SaveChanges();
+            
+        }
+
+        public List<Mark> GetMarksList(int resultId)
+        {
+            return _sc.Marks.Where(x=>x.ResultId.Equals(resultId)).ToList();  
+        }
+
+        public void DeleteMarks(List<Mark> marks)
+        {
+           _sc.Marks.RemoveRange(marks);
+            _sc.SaveChanges();
+        }
+
     }
 }

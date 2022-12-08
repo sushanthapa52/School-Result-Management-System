@@ -10,7 +10,7 @@ namespace SRMSDataAccess.Models
         public int SubjectId { get; set; }
         public int Marks { get; set; }
 
-        public virtual Result Result { get; set; } = null!;
-        public virtual Subject Subject { get; set; } = null!;
+        //public virtual Result Result { get; set; } = null!;
+        //public virtual Subject Subject { get; set; } = null!;
     }
 }

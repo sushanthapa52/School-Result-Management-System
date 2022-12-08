@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Subject>
+@{
+    ViewBag.Title = "Subjects";
+}
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style>
+   .actions{
+       padding:8px;
+       font-size:14px;
+   }
+   .delete{
+       color:red;
+   }
+   .edit{
+       color:yellowgreen;
+   }
+</style>
+
+
+
+  
+
+
+@if (Model.Any())
+{
+     <div class="card-body">
+        <a type="button" class="btn btn-info add-new mb-5" asp-action="Create"><i class="fa fa-plus"></i> Add New Subject</a>
+  <table class="table">     
+<thead>
+<tr>
+
+<th>Subjects</th>
+<th>Actions</th>
+
+</tr>
+</thead>
+<tbody>                       
+    @foreach (Subject subject in Model)
+                        {
+                            <tr>
+                                <td>@subject.SubjectName</td>
+
+                                <td>
+
+                                    <a class="edit actions" asp-action="Edit" asp-route-id="@subject.Id"><i class="material-icons">&#xE254;</i>Edit</a>
+                                    @*<a class="delete" asp-action="Delete" asp-route-id="@subject.Id"><i class="material-icons">&#xE872;</i></a>*@
+                                            
+                                    <a class="delete actions" asp-action="Delete" asp-route-id="@subject.Id" onclick="return confirm('Are you sure you want to delete this item?')"> <i class="material-icons">&#xE872;</i>Delete</a>
+       
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+     
+}
+
+else
+{
+    <div class="card mb-5 ">
+        <div class="card-body text-danger">No Subject Created yet.</div>
+    </div>
+    <a type="button" class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Subject</a>
+}
+
+

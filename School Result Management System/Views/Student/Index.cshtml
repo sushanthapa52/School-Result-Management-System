@@ -1,0 +1,124 @@
+﻿@model SVMwrapper
+@{
+    ViewBag.Title = "Students";
+}
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+    .actions {
+        display:flex;
+        column-gap:25px;
+
+    }
+
+    .delete {
+        color: red;
+    }
+
+    .edit {
+        color: yellowgreen;
+    }
+    .header{
+        display:flex;
+        justify-content: space-evenly;
+    }
+
+    
+</style>
+
+
+
+@if (Model.Students.Any())
+{
+   
+<form asp-action="Index" method="post">
+
+        <div class="card-body p-0">
+        @using (Html.BeginForm())
+{
+    <div class="header" >
+    <div>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" />
+
+          <a   asp-action="Index" > Back To List</a>
+          </div>
+         <div style="align-self:flex-end;">
+          <a  class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Student</a>
+
+          </div>
+          </div>
+}
+
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th width="20%">Student Name</th>
+                    <th width="15%">Roll Number</th>
+                    <th width="15%">Class</th>
+                    <th width="45%">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (StudentViewModel student in Model.Students)
+                {
+                    <tr>
+                        <td>@student.StudentName</td>
+                        <td>@student.StudentRollNo</td>
+                        <td>@student.classname</td>
+
+                        <td class="actions">
+
+                            <a class="edit" asp-action="Edit" asp-route-id="@student.StudentId"><i class="material-icons">&#xE254;</i>Edit</a>
+                            <a class="delete" asp-action="Delete" asp-route-id="@student.StudentId" onclick="return confirm('Are you sure you want to delete this item?')"><i class="material-icons">&#xE872;</i>Delete</a>
+
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+         <table cellpadding="5" cellspacing="5">
+            <tr>
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <td>
+                        @if (i != Model.CurrentPageIndex)
+                        {
+                            <a href="javascript:PagerClick(@i);">@i</a>
+                        }
+                        else
+                        {
+                            <span>@i</span>
+                        }
+                    </td>
+                }
+            </tr>
+        </table>
+        <input type="hidden" id="hfCurrentPageIndex" name="currentPageIndex"/>
+
+    </div>
+
+     </form> 
+}
+
+else
+{
+
+    <div class="card mb-5">
+        <div class="card-body text-danger">No Students yet.</div>
+    </div>
+    <a type="button" class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Student</a>
+
+}
+
+
+ <script type="text/javascript">
+            function PagerClick(index) {
+                document.getElementById("hfCurrentPageIndex").value = index;
+                document.forms[0].submit();
+            }
+    </script>

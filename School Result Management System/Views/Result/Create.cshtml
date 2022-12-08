@@ -1,0 +1,34 @@
+﻿@model ExamViewModel
+@{
+    ViewBag.Title = "Declare Result";
+}
+
+
+ <form accept-charset="UTF-8" role="form" method="post">
+     <fieldset>
+
+                 <div class="form-group">
+                      <label>Choose Exam </label>
+                       <select asp-for="Examid" class="form-control justify-content-center" asp-items="ViewBag.Exams"></select>
+                      <span asp-validation-for="Examid" class="text-danger"></span>
+                   </div>
+
+                <div class="form-group">
+                <label asp-for="ClassID">Choose Class</label><br />
+                 <select asp-for="ClassID" class="form-control justify-content-center" asp-items="ViewBag.Class"></select>
+                </div>
+
+
+                  <div class="form-group">
+                  <label asp-for="ExamYear">Exam Year</label>
+                    <input type="text" class="form-control" asp-for="ExamYear" placeholder="eg:2078" />
+                   <span asp-validation-for="ExamYear" class="text-danger"></span>
+                     </div>    
+                
+                      <button type="submit" class="btn  btn-success ">Search</button>
+                     
+                      <div asp-validation-summary="All" class="text-danger" ></div>
+   </fieldset>
+
+
+   </form>

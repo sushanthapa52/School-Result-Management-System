@@ -1,0 +1,51 @@
+﻿@model ClassSubjectViewModel
+
+
+@{
+    ViewBag.Title = "Class Subject combination";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<form method="post">
+   
+ <div class="row d-flex justify-content-center mt-100">
+        <div class="col-md-6">
+            <label asp-for="SubjectIds">Select Subjects</label>
+            <select id="choices-multiple-remove-button" asp-for="SubjectIds"  asp-items="@(new SelectList(Model.ClassSubjects,"Id","SubjectName"))" placeholder="Choose Subjects" multiple>
+            </select>
+             <span asp-validation-for="SubjectIds" class="text-danger"></span>
+        </div>
+    </div>
+    @if (ViewBag.Success !=null)
+    {
+        <div class="text-success" style="margin-left: 26%;">@ViewBag.Success</div>
+    }
+    else
+    {
+         <div class="text-danger">@ViewBag.Error</div>
+    }
+    <button type="submit" class="btn mt-3 btn-success" style="margin-left: 26%;">Create</button>
+</form>
+
+@section scripts{
+ <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:10,
+    searchResultLimit:10,
+    renderChoiceLimit:10
+    });
+
+
+    });
+
+</script>
+}

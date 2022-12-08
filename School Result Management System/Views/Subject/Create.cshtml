@@ -1,0 +1,42 @@
+﻿@model SubjectViewModel
+@{
+    ViewBag.Title = "Create Subject";
+}
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Create Subject</h5>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form" method="post">
+
+                        <fieldset>
+                            <div class="form-group">
+
+                                <label asp-for="SubjectName"></label>
+                                <input asp-for="SubjectName" class="form-control" placeholder="Subject Name" />
+                                <span asp-validation-for="SubjectName" class="text-danger"></span>
+
+                                <div asp-validation-summary="All" class="text-danger"> </div>
+                          
+                            </div>
+                           
+                                
+                         
+                             <button type="submit" class="btn btn-lg btn-success btn-block">Create</button>
+                           
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+

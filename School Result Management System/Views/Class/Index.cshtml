@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Class>
+@{
+    ViewBag.Title = "Classes";
+}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style>
+   .actions{
+       padding:4px;
+       font-size:14px;
+   }
+   .delete{
+       color:red;
+   }
+   .edit{
+       color:yellowgreen;
+   }
+</style>
+
+
+
+@if (Model.Any())
+{
+   
+
+   <div class="card-body p-0">
+        <a type="button" class="btn btn-info add-new mb-5" asp-action="Create"><i class="fa fa-plus"></i> Add New Class</a>
+  <table class="table">     
+<thead>
+<tr>
+
+<th>ClassName</th>
+<th>Actions</th>
+
+</tr>
+</thead>
+<tbody>
+@foreach(Class cl in Model)
+                    {
+                         <tr>
+                        <td>@cl.ClassName</td>
+                       
+                        <td>
+                           
+                            <a class="edit actions" asp-action="Edit" asp-route-id="@cl.Id"><i class="material-icons">&#xE254;</i>Edit</a>
+                            <a class="delete actions" asp-action="Delete" onclick="return confirm('Are you sure you want to delete this item?')" asp-route-id="@cl.Id"><i class="material-icons">&#xE872;</i>Delete</a>
+                            <a  class="actions" asp-controller="ClassSubject" asp-action="Create" asp-route-id="@cl.Id">Manage Subjects</a>
+                        </td>
+                    </tr>
+                    }
+</tbody>
+</table>
+</div>
+}
+else
+{
+    
+  <div class="card mb-5">
+      <div class="card-body text-danger">No Classes Created yet.</div>
+      </div>
+   <a type="button" class="btn btn-info add-new" asp-action="Create"><i class="fa fa-plus"></i> Add New Class</a>
+
+}
+

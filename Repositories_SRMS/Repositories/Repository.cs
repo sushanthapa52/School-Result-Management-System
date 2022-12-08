@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.Repositories
 {
-    public class Repository<T, T1> : IRepository<T, T1> where T : class
+    public class Repository<T, T1> : IRepository<T,T1> where T : class
     {
-        private readonly SrmsContext _sc;
+     public readonly SrmsContext _sc;
         private DbSet<T> _dbSet;
         public Repository(SrmsContext sc)
         {
@@ -51,6 +51,8 @@ namespace SRMSRepositories.Repositories
             throw new NotImplementedException();
         }
 
+        
+
         public Task<IQueryable<T>> FindByIdAsync(T1 id)
         {
             throw new NotImplementedException();
@@ -77,7 +79,7 @@ namespace SRMSRepositories.Repositories
         {
             throw new NotImplementedException();
         }
-        private void Save()
+        protected void Save()
         {
             _sc.SaveChanges();
         }

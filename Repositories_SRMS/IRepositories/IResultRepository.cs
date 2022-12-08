@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace SRMSRepositories.IRepositories
 {
-    public interface IResultRepository : IRepository<Result, int>
+    public interface IResultRepository
     {
+         Task<Result> AddResultAsync(Result model);
+
+        IEnumerable<Result> GetAllResults();
+        Result ResultExists(int eid, int sid, int cid);
     }
 }

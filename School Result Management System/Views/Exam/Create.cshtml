@@ -1,0 +1,69 @@
+﻿@model ExamViewModel
+@{
+    ViewBag.Title = "Create Exam";
+}
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Exam Details</h3>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form" method="post">
+
+                        <fieldset>
+                    
+                        <div class="form-group">
+                        <label>Enter Exam Type</label>
+                          <select asp-for="Examid" class="form-control justify-content-center" asp-items="ViewBag.Exams"></select>
+                        <span asp-validation-for="Examid" class="text-danger"></span>
+
+                        </div>
+                            
+                      
+                                <div class="form-group">
+                                    <label asp-for="ClassID">Class</label><br />
+                                     <select asp-for="ClassID" class="form-control justify-content-center" asp-items="ViewBag.Class"></select>
+
+                                 </div>
+
+                            <div class="form-group">
+                                <label asp-for="ExamYear">Exam Year</label>
+                                <input type="text" class="form-control" asp-for="ExamYear" placeholder="eg:2078" />
+                                <span asp-validation-for="ExamYear" class="text-danger"></span>
+
+                            </div>
+
+                          <div asp-validation-summary="All" class="text-danger"></div>
+
+                                 @if(ViewBag.Success != null)
+                            {   
+                                <div class="text-success">@ViewBag.Success</div>
+
+
+                            }
+                            else
+                            {
+                                <div class="text-danger">@ViewBag.Error</div>
+                            }
+
+
+
+                            <button type="submit" class="btn btn-lg btn-success btn-block">Add Exam</button>
+                     
+
+                            
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

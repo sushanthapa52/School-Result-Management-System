@@ -1,23 +1,48 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SRMSDataAccess.Models;
 using SRMSRepositories.IRepositories;
 using SRMSRepositories.Repositories;
-using SRMSServices.IServices;
-using SRMSServices.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context=>true;
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+
+});
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme= CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignOutScheme=CookieAuthenticationDefaults.AuthenticationScheme;
+
+}).AddCookie(option =>
+{
+    option.LoginPath = "/Login/Index";
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(24*60);
+});
+
 //Sql Server Connection though  EntityFramework
 builder.Services.AddDbContext<SrmsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 //Dependency Injection for Repository
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IExamRepository, ExamRepository>();
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
+builder.Services.AddScoped<IMarkRepository, MarkRepository>();
 
 
-//Dependency Injection for Services
-builder.Services.AddScoped<IStudentService, StudentService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,10 +58,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=StudentSide}/{action=Index}/{id?}");
 
 
 
